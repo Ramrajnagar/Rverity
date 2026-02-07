@@ -4,11 +4,11 @@ import React, { useRef, useState } from "react";
 import { MoveRight } from "lucide-react";
 
 export default function SpotlightButton({ text, onClick, href, className = "" }: { text: string; onClick?: () => void; href?: string; className?: string }) {
-    const divRef = useRef<HTMLButtonElement>(null);
+    const divRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [opacity, setOpacity] = useState(0);
 
-    const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
         if (!divRef.current) return;
 
         const div = divRef.current;
@@ -37,8 +37,7 @@ export default function SpotlightButton({ text, onClick, href, className = "" }:
 
     return (
         <Component
-            // @ts-ignore
-            ref={divRef}
+            ref={divRef as any}
             href={href}
             onClick={onClick}
             onMouseMove={handleMouseMove}

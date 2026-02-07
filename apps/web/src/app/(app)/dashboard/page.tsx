@@ -28,25 +28,26 @@ export default function DashboardPage() {
     const wsRef = useRef<WebSocket | null>(null);
 
     useEffect(() => {
-        let ws: WebSocket | null = null;
-        let reconnectTimer: NodeJS.Timeout;
+        let subscription: any;
 
         const init = async () => {
             // 1. Get Session
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) {
-                // Ideally redirect or show empty state
                 console.log('No active session found');
                 return;
             }
 
             setUser(session.user);
+            const userId = session.user.id;
             const token = session.access_token;
+
+            setConnected(true); // Connected to "App" (Supabase)
 
             // 2. Fetch History
             try {
-                const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
-                const res = await fetch(`${apiUrl}/v1/memory`, {
+                // Use relative URL for Vercel/Next.js API routes
+                const res = await fetch('/v1/memory', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (res.ok) {
@@ -57,52 +58,52 @@ export default function DashboardPage() {
                 console.error('Failed to load history', e);
             }
 
-            // 3. Connect WebSocket
-            const connect = () => {
-                if (wsRef.current?.readyState === WebSocket.OPEN) return;
+            // 3. Subscribe to Realtime (Postgres Changes)
+            const channel = supabase
+                .channel('realtime:memories:' + userId)
+                .on(
+                    'postgres_changes',
+                    {
+                        event: 'INSERT',
+                        schema: 'public',
+                        table: 'memories',
+                        filter: `user_id=eq.${userId}`
+                    },
+                    (payload) => {
+                        console.log('Realtime Update:', payload);
+                        const newMemory = payload.new;
 
-                const wsUrl = process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:3001/v1/ws';
-                const fullUrl = `${wsUrl}?token=${token}`;
-                const ws = new WebSocket(fullUrl);
-                wsRef.current = ws;
-
-                ws.onopen = () => {
-                    console.log('Connected to Rverity Gateway');
-                    setConnected(true);
-                };
-
-                ws.onmessage = (event) => {
-                    try {
-                        const data = JSON.parse(event.data);
-                        if (data.type === 'MEMORY_ADDED') {
-                            setMemories((prev) => [
-                                { id: crypto.randomUUID(), payload: data.payload },
-                                ...prev.slice(0, 19) // Keep last 20
-                            ]);
-                        }
-                    } catch (e) {
-                        console.error('WS Parse Error', e);
+                        // Optimistically update UI
+                        setMemories((prev) => [
+                            {
+                                id: newMemory.id,
+                                payload: {
+                                    content: newMemory.content,
+                                    source: newMemory.source,
+                                    tags: newMemory.tags,
+                                    timestamp: newMemory.created_at,
+                                    persistentId: newMemory.id
+                                }
+                            },
+                            ...prev.slice(0, 19)
+                        ]);
                     }
-                };
+                )
+                .subscribe((status) => {
+                    if (status === 'SUBSCRIBED') {
+                        console.log('Subscribed to realtime updates');
+                    }
+                });
 
-                ws.onclose = () => {
-                    setConnected(false);
-                    wsRef.current = null;
-                    reconnectTimer = setTimeout(connect, 3000);
-                };
-            };
-
-            connect();
+            subscription = channel;
         };
 
         init();
 
         return () => {
-            if (wsRef.current) {
-                wsRef.current.close();
-                wsRef.current = null;
+            if (subscription) {
+                supabase.removeChannel(subscription);
             }
-            clearTimeout(reconnectTimer);
         };
     }, []);
 
