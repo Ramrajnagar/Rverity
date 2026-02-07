@@ -1,0 +1,56 @@
+{
+    "name": "neurosync-vscode",
+    "displayName": "NeuroSync AI",
+    "description": "Connects your VSCode to NeuroSync Memory Layer",
+    "version": "0.0.1",
+    "publisher": "neurosync",
+    "engines": {
+        "vscode": "^1.80.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onStartupFinished"
+    ],
+    "main": "./dist/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "neurosync.manualSync",
+                "title": "NeuroSync: Manual Sync"
+            }
+        ],
+        "configuration": {
+            "title": "NeuroSync",
+            "properties": {
+                "neurosync.apiKey": {
+                    "type": "string",
+                    "default": "dev_key",
+                    "description": "API Key for NeuroSync"
+                },
+                "neurosync.apiUrl": {
+                    "type": "string",
+                    "default": "http://localhost:3001",
+                    "description": "NeuroSync API URL"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run package",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "package": "vsce package",
+        "pretest": "npm run compile && npm run lint"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.80.0",
+        "@types/node": "^20.0.0",
+        "typescript": "^5.0.0",
+        "@neurosync/sdk": "*"
+    },
+    "dependencies": {
+        "@neurosync/sdk": "*"
+    }
+}
