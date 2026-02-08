@@ -1,117 +1,129 @@
 <div align="center">
-  <br />
   <a href="https://rverity.ai">
-    <!-- Replace with actual logo URL when hosted -->
-    <img src="https://github.com/user-attachments/assets/placeholder-logo.png" alt="Rverity Logo" width="100">
+    <img src="apps/web/public/rverity-brand.svg" alt="Rverity Logo" width="120" height="120">
   </a>
-  <br />
 
   <h1>RVERITY</h1>
+
+  <p align="center">
+    <strong>The Absolute Truth for your Digital Life.</strong>
+  </p>
   
   <p align="center">
-    <b>The Knowledge Graph for your Digital Soul.</b>
+    A self-hosted <b>Knowledge Graph</b> that syncs your code, research, and context into a single, queryable Second Brain.
   </p>
 
   <p align="center">
     <a href="https://rverity.ai">Live Demo</a> •
     <a href="#-getting-started">Getting Started</a> •
-    <a href="#-the-manifesto">The Manifesto</a> •
+    <a href="#-the-manifesto">Manifesto</a> •
     <a href="#-community">Community</a>
   </p>
-  
-  <br />
 </div>
+
+<br/>
 
 ---
 
-> *"AI models are generic geniuses. They know everything about the world, but nothing about YOU. Rverity bridges that gap."*
+## The Manifesto
+AI models are generic geniuses. They know everything about the world, but **nothing about YOU**.
 
-## 🔮 The Problem
-You spend 40% of your life as a developer **searching**.
-- Searching for that snippet you wrote 3 months ago.
-- Searching for the docs you read last week.
-- Searching for the Jira ticket that explains *why* this code exists.
+We believe that in the post-AGI world, **Context is the new Currency**.
+Your browsing history, your git commits, your Slack messages—these aren't just logs. They are the fingerprints of your digital soul.
 
-Your digital life is fragmented across VS Code, Chrome, GitHub, and Slack. **You are leaking context every second.**
+**Rverity** is the infrastructure that reclaims this data. We don't just "search" your history. We vector-embed it, link it in a 3D graph, and give you (and your AI agents) instant access to your **Absolute Truth**.
 
-## ⚡ The Solution: Rverity
-Rverity is not just a tool. It is a **Protocol**.
-It acts as a background "Neural Layer" that silently observes, indexes, and connects your digital footprint into a massive, 3D Knowledge Graph.
+> *"Stop searching. Start recalling."*
 
-It turns your scattered history into **Absolute Truth**.
+---
 
-### How It Works
+## The Workflow
+Rverity runs silently in the background, weaving connections between your isolated tools.
+
 ```mermaid
 graph LR
-    A[VS Code] -->|Stream| B(Sync Engine)
-    C[Chrome] -->|Capture| B
-    D[GitHub] -->|Index| B
-    B -->|Vectorize| E{Rverity Core}
-    E -->|Stored Memories| F[(User's Second Brain)]
-    F -->|Context Recall| A
-    F -->|Vizualization| G[3D Knowledge Graph]
+    subgraph "Your Environment"
+        A[VS Code] 
+        B[Chrome]
+        C[GitHub]
+    end
+
+    subgraph "Rverity Core"
+        D(Stream Engine)
+        E{Vector DB}
+        F[3D Knowledge Graph]
+    end
+
+    A -->|Live Edits| D
+    B -->|Research| D
+    C -->|Commits| D
+    D -->|Embed| E
+    E -->|Visualize| F
+    E -->|Context Recall| A
 ```
 
-1.  **Capture**: Our plugins (VS Code Extension, Chrome Extension) listen to your workflow.
-2.  **Synthesize**: Code, docs, and notes are vectorized and linked in real-time.
-3.  **Recall**: When you open a file, Rverity *instantly* shows you every related memory, doc, or bug report from your past.
+1.  **Observe**: Our plugins capture context from VS Code, Chrome, and GitHub.
+2.  **Synthesize**: We turn raw data into semantic vectors.
+3.  **Recall**: When you open a file, Rverity instantly anticipates what you need to know next.
 
-## 🛠️ The Tech Stack (Built for Speed)
-This isn't a wrapper. This is deep-tech.
--   **Frontend**: Next.js 16 (App Router), Framer Motion, React Three Fiber (3D).
--   **Backend**: Serverless Edge Functions (Vercel).
--   **Memory**: Supabase (pgvector) + Upstash Redis (Hot Cache).
--   **Intelligence**: OpenAI / Anthropic Embeddings.
+---
 
-## 🚀 Getting Started
+## Tech Stack
+Built for speed, privacy, and sovereignty.
 
-We are open-source at heart. Run your own brain.
+*   **Frontend**: Next.js 16 (App Router), React Three Fiber (3D), Framer Motion.
+*   **Backend**: Node.js (Edge Functions), WebSockets.
+*   **Database**: Supabase (PostgreSQL + pgvector).
+*   **Cache**: Upstash Redis.
+*   **Intelligence**: OpenAI / Anthropic Embeddings.
+
+---
+
+## Getting Started
+
+Rverity is open-source. You can self-host your own brain today.
 
 ### Prerequisites
-- Node.js 20+
-- Supabase Account
-- Upstash Redis Account
+*   Node.js 20+
+*   Docker (optional)
+*   Supabase & Upstash accounts
 
 ### Installation
 
 ```bash
-# 1. Clone the repository
+# 1. Clone the Protocol
 git clone https://github.com/Ramrajnagar/Rverity.git
 cd neurosync-ai
 
-# 2. Install dependencies (Monorepo)
+# 2. Install Dependencies
 npm install
 
-# 3. Configure Environment
+# 3. Configure Keys
 cp apps/web/.env.example apps/web/.env.local
-# (Fill in your SUPABASE_URL, ANON_KEY, and UPSTASH_REDIS_REST_URL)
+# Add your NEXT_PUBLIC_SUPABASE_URL, ANON_KEY, and REDIS_URL
 
-# 4. Ignite the Engine
+# 4. Initialize
 npm run dev
 ```
 
-Visit `http://localhost:3000` and watch your brain come to life.
-
-## 🤝 Contributors
-We are building the future of human-AI symbiosis. We need **Architects**, not just coders.
-
-<div align="center">
-  <a href="https://github.com/Ramrajnagar/Rverity/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=Ramrajnagar/Rverity" />
-  </a>
-</div>
-
-**Areas we need help with:**
-- [ ] **Neural Visualizations**: Make the 3D graph even more immersive.
-- [ ] **IDE Agents**: Build the "Pre-Cognitive" context suggestions.
-- [ ] **Privacy Vaults**: Local-first vector storage.
-
-## 📜 The Philosophy
-We believe in **Data Sovereignty**.
-Rverity is designed to be self-hosted. Your thoughts, your code, and your memories belong to **you**. We just build the lens to see them.
+Visit `http://localhost:3000` to enter the graph.
 
 ---
 
-<p align="center">
-  Built with obsession by <a href="https://github.com/Ramrajnagar">Ramraj</a> and the Rverity Team.
-</p>
+## Community & Contributors
+We are building the memory layer for the future of AI. We need architects, visionaries, and builders.
+
+<a href="https://github.com/Ramrajnagar/Rverity/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Ramrajnagar/Rverity" />
+</a>
+
+**Roadmap Priorities:**
+*   [ ] **Neural Visualizations**: Immersive WebGL graph navigation.
+*   [ ] **Predictive Context**: Agents that code *with* you, not just for you.
+*   [ ] **Local Vaults**: Fully offline, local-only vector storage.
+
+---
+
+<div align="center">
+  <p>Built with conviction by <a href="https://github.com/Ramrajnagar">Ramraj</a> and the Rverity Team.</p>
+</div>
