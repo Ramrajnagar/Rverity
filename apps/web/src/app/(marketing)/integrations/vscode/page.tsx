@@ -10,7 +10,7 @@ export default function VSCodePage() {
             description="The world's first IDE extension that remembers what you coded last week, last month, and last year."
             icon={Code2}
             installCommand="code --install-extension rverity.vscode"
-            downloadLink="#"
+            downloadLink="https://marketplace.visualstudio.com/items?itemName=rverity.vscode"
             docsLink="/docs/vscode"
             features={[
                 "Automatic file indexing on save",

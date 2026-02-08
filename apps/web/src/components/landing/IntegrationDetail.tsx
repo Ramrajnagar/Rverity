@@ -42,9 +42,9 @@ export default function IntegrationDetail({
 
                     <div className="flex flex-col sm:flex-row gap-4 mb-16">
                         {downloadLink && (
-                            <Link href={downloadLink} className="flex items-center gap-2 px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-zinc-200 transition-colors">
+                            <Link href={downloadLink} target="_blank" className="flex items-center gap-2 px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-zinc-200 transition-colors">
                                 <Download className="h-5 w-5" />
-                                Install Now
+                                {title === "GitHub" ? "Connect App" : "Install Now"}
                             </Link>
                         )}
                         {docsLink && (

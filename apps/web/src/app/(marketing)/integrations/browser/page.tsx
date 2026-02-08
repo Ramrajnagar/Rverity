@@ -9,7 +9,7 @@ export default function BrowserPage() {
             title="Chrome & Edge"
             description="Turn your browsing history into a searchable knowledge base. Capture documentation, StackOverflow answers, and articles with one click."
             icon={Chrome}
-            downloadLink="#"
+            downloadLink="https://chrome.google.com/webstore/detail/rverity/placeholder"
             docsLink="/docs/browser"
             features={[
                 "Automatic URL categorization",

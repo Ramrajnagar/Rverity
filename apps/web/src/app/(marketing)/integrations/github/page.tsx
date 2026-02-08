@@ -9,7 +9,7 @@ export default function GitHubPage() {
             title="GitHub"
             description="Connect your repositories to Rverity to automatically index Issues, PRs, and Discussions."
             icon={Github}
-            downloadLink="#"
+            downloadLink="https://github.com/apps/rverity"
             docsLink="/docs/github"
             features={[
                 "Webhooks for real-time issue tracking",

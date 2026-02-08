@@ -3,6 +3,7 @@
 import Section from "@/components/ui/Section";
 import { Github, Chrome, Code2, Terminal, Laptop, Globe, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function IntegrationsGrid() {
     const integrations = [
@@ -14,6 +15,7 @@ export default function IntegrationsGrid() {
             bg: "bg-blue-500/10",
             border: "group-hover:border-blue-500/50",
             shadow: "group-hover:shadow-[0_0_30px_-5px_rgba(59,130,246,0.3)]",
+            href: "/integrations/vscode"
         },
         {
             title: "Browser",
@@ -23,6 +25,7 @@ export default function IntegrationsGrid() {
             bg: "bg-orange-500/10",
             border: "group-hover:border-orange-500/50",
             shadow: "group-hover:shadow-[0_0_30px_-5px_rgba(249,115,22,0.3)]",
+            href: "/integrations/browser"
         },
         {
             title: "GitHub",
@@ -32,6 +35,7 @@ export default function IntegrationsGrid() {
             bg: "bg-purple-500/10",
             border: "group-hover:border-purple-500/50",
             shadow: "group-hover:shadow-[0_0_30px_-5px_rgba(168,85,247,0.3)]",
+            href: "/integrations/github"
         },
         {
             title: "API / SDK",
@@ -41,6 +45,7 @@ export default function IntegrationsGrid() {
             bg: "bg-yellow-500/10",
             border: "group-hover:border-yellow-500/50",
             shadow: "group-hover:shadow-[0_0_30px_-5px_rgba(234,179,8,0.3)]",
+            href: "/docs/api"
         },
     ];
 
@@ -55,39 +60,40 @@ export default function IntegrationsGrid() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto px-4 relative z-10">
                 {integrations.map((item, i) => (
-                    <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: i * 0.1 }}
-                        className={`group relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-900/50 backdrop-blur-sm p-8 transition-all duration-500 ${item.border} ${item.shadow}`}
-                    >
-                        {/* Background Icon Watermark */}
-                        <div className="absolute -right-4 -bottom-4 opacity-5 transition-opacity duration-500 group-hover:opacity-10 scale-[2.5]">
-                            <item.icon className="h-32 w-32" />
-                        </div>
-
-                        {/* Hover Gradient */}
-                        <div className={`absolute inset-0 bg-gradient-to-br from-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-
-                        <div className="relative z-10 flex flex-col h-full">
-                            <div className={`h-12 w-12 rounded-xl flex items-center justify-center mb-6 ${item.bg} ${item.color}`}>
-                                <item.icon className="h-6 w-6" />
+                    <Link href={item.href} key={i}>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: i * 0.1 }}
+                            className={`group relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-900/50 backdrop-blur-sm p-8 transition-all duration-500 ${item.border} ${item.shadow} h-full`}
+                        >
+                            {/* Background Icon Watermark */}
+                            <div className="absolute -right-4 -bottom-4 opacity-5 transition-opacity duration-500 group-hover:opacity-10 scale-[2.5]">
+                                <item.icon className="h-32 w-32" />
                             </div>
 
-                            <div className="flex-1">
-                                <h3 className="text-xl font-bold text-white mb-2 font-display">{item.title}</h3>
-                                <p className="text-sm text-zinc-400 leading-relaxed">
-                                    {item.description}
-                                </p>
-                            </div>
+                            {/* Hover Gradient */}
+                            <div className={`absolute inset-0 bg-gradient-to-br from-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
-                            <div className="mt-6 flex items-center gap-2 text-xs font-bold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 text-white">
-                                <span>Connect</span>
-                                <ArrowUpRight className="h-3 w-3" />
+                            <div className="relative z-10 flex flex-col h-full">
+                                <div className={`h-12 w-12 rounded-xl flex items-center justify-center mb-6 ${item.bg} ${item.color}`}>
+                                    <item.icon className="h-6 w-6" />
+                                </div>
+
+                                <div className="flex-1">
+                                    <h3 className="text-xl font-bold text-white mb-2 font-display">{item.title}</h3>
+                                    <p className="text-sm text-zinc-400 leading-relaxed">
+                                        {item.description}
+                                    </p>
+                                </div>
+
+                                <div className="mt-6 flex items-center gap-2 text-xs font-bold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 text-white">
+                                    <span>Connect</span>
+                                    <ArrowUpRight className="h-3 w-3" />
+                                </div>
                             </div>
-                        </div>
-                    </motion.div>
+                        </motion.div>
+                    </Link>
                 ))}
             </div>
         </Section>
