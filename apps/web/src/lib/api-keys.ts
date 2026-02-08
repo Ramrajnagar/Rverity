@@ -1,5 +1,4 @@
-
-import { supabase } from '../config/supabase';
+import { supabaseAdmin as supabase } from '@/lib/supabase-admin';
 import crypto from 'crypto';
 
 export class ApiKeyService {
@@ -54,25 +53,16 @@ export class ApiKeyService {
             .from('tools')
             .delete()
             .eq('id', keyId)
-            .eq('user_id', userId); // Security: ensure user owns key
+            .eq('user_id', userId);
 
         if (error) throw error;
         return true;
     }
 
-    /**
-     * Verifies an incoming raw key.
-     * Returns the user_id if valid, null otherwise.
-     */
     static async verifyKey(rawKey: string): Promise<string | null> {
         if (!rawKey.startsWith('sk_neuro_')) return null;
 
         const hash = crypto.createHash('sha256').update(rawKey).digest('hex');
-
-        // We need to look up the key.
-        // Since we can't search by hash efficiently without index (schema.sql didn't show hash index),
-        // we might need to rely on the fact that this table won't be huge, or add index.
-        // However, for now, we just select the row.
 
         const { data, error } = await supabase
             .from('tools')
@@ -82,7 +72,7 @@ export class ApiKeyService {
 
         if (error || !data) return null;
 
-        // Update last active async (fire and forget)
+        // Async update last active
         supabase.from('tools').update({ last_active: new Date().toISOString() }).eq('api_key_hash', hash).then();
 
         return data.user_id;
