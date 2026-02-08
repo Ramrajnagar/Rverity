@@ -32,7 +32,7 @@ export default function Footer() {
                     <h4 className="mb-4 font-semibold text-white">Resources</h4>
                     <ul className="space-y-2 text-sm">
                         <li><Link href="/docs" className="hover:text-green-400">Documentation</Link></li>
-                        <li><Link href="/graph" className="hover:text-green-400">Knowledge Graph</Link></li>
+                        <li><Link href="/features/graph" className="hover:text-green-400">Knowledge Graph</Link></li>
                         <li><Link href="/signup" className="hover:text-green-400">Community</Link></li>
                     </ul>
                 </div>

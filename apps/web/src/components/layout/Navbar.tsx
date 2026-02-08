@@ -74,7 +74,7 @@ export function Navbar() {
                         </AnimatePresence>
                     </div>
 
-                    <Link href="/graph" className="text-sm font-bold text-zinc-400 hover:text-white transition-colors tracking-wide uppercase text-[11px]">Knowledge Graph</Link>
+                    <Link href="/features/graph" className="text-sm font-bold text-zinc-400 hover:text-white transition-colors tracking-wide uppercase text-[11px]">Knowledge Graph</Link>
                     <Link href="/docs" className="text-sm font-bold text-zinc-400 hover:text-white transition-colors tracking-wide uppercase text-[11px]">Docs</Link>
                 </div>
 
@@ -110,7 +110,7 @@ export function Navbar() {
                         <div className="flex flex-col p-6 gap-4">
                             <Link href="/" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white">Home</Link>
                             <Link href="/pricing" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-zinc-400">Pricing</Link>
-                            <Link href="/graph" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-zinc-400">Knowledge Graph</Link>
+                            <Link href="/features/graph" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-zinc-400">Knowledge Graph</Link>
                             <Link href="/docs" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-zinc-400">Docs</Link>
                             <div className="h-px bg-white/10 my-2" />
                             <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white">Log In</Link>

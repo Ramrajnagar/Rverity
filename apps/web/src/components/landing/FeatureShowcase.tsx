@@ -24,7 +24,7 @@ export default function FeatureShowcase() {
             header: <ContextVisual />,
             icon: <Search className="h-4 w-4 text-cyan-400" />,
             className: "md:col-span-2 group/bento",
-            href: "/graph"
+            href: "/features/graph"
         },
         {
             title: "Local-First Encryption",
@@ -40,7 +40,7 @@ export default function FeatureShowcase() {
             header: <ResonanceVisual />,
             icon: <Brain className="h-4 w-4 text-purple-400" />,
             className: "md:col-span-1 group/bento",
-            href: "/graph"
+            href: "/features/graph"
         },
         {
             title: "Instant Capture",
