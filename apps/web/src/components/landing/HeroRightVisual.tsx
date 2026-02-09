@@ -173,7 +173,7 @@ function AdvancedHyperCore() {
 
 export default function HeroRightVisual() {
     return (
-        <div className="w-full h-full min-h-[600px] flex items-center justify-center pointer-events-auto">
+        <div className="w-full h-full min-h-[400px] md:min-h-[600px] flex items-center justify-center pointer-events-auto">
             <Canvas gl={{ alpha: true, antialias: true }} style={{ background: 'transparent' }}>
                 <PerspectiveCamera makeDefault position={[0, 0, 8]} fov={35} />
 

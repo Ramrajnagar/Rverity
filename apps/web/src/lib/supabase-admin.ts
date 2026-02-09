@@ -8,9 +8,14 @@ if (!supabaseUrl || !serviceRoleKey) {
     console.warn('Supabase Admin: Missing env vars');
 }
 
-export const supabaseAdmin = createClient(supabaseUrl, serviceRoleKey || '', {
-    auth: {
-        autoRefreshToken: false,
-        persistSession: false
-    }
-});
+// Check if we have the service key. If not, we might be in a build environment without secrets.
+// We can't return a functional client without the key, but we can prevent the build from crashing
+// if this module is imported but not actively used for data fetching during build.
+export const supabaseAdmin = (supabaseUrl && serviceRoleKey)
+    ? createClient(supabaseUrl, serviceRoleKey, {
+        auth: {
+            autoRefreshToken: false,
+            persistSession: false
+        }
+    })
+    : ({} as any); // Fallback to empty object to prevent build crash, will fail at runtime if used without key

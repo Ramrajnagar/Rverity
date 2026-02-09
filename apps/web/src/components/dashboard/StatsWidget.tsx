@@ -22,7 +22,7 @@ export function StatsWidget({ memories, connected }: { memories: any[], connecte
     const streak = uniqueDays.size;
 
     return (
-        <div className="grid grid-cols-2 gap-4 h-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 h-full">
             <StatBox
                 icon={Flame}
                 label="Neural Streak"

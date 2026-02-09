@@ -150,7 +150,7 @@ export default function TechEcosystemDiagram() {
     ];
 
     return (
-        <div className="relative flex h-full w-full items-center justify-center overflow-visible bg-transparent">
+        <div className="relative flex h-full w-full items-center justify-center overflow-visible bg-transparent scale-[0.6] md:scale-100 transition-transform duration-500">
             {/* Ambient Background Glow */}
             <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/5 blur-[100px]" />
 

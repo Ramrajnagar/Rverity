@@ -40,7 +40,7 @@ export default function HeroSection() {
 
                     {/* Headline with Typewriter & Scramble */}
                     <div className="flex flex-col items-center md:items-start gap-2">
-                        <h1 className="text-6xl font-bold tracking-tighter text-white sm:text-7xl md:text-8xl font-display leading-[0.85]">
+                        <h1 className="text-5xl font-bold tracking-tighter text-white sm:text-7xl md:text-8xl font-display leading-[0.85]">
                             <span className="block text-zinc-300">
                                 <Typewriter text="SYNC YOUR" delay={200} speed={100} cursorClassName="bg-primary" />
                             </span>
@@ -98,7 +98,7 @@ export default function HeroSection() {
             </div>
 
             {/* Right Column: Visual Animation */}
-            <div className="hidden md:flex w-full md:w-1/2 h-full min-h-[700px] items-center justify-center relative z-10 pointer-events-auto perspective-1000">
+            <div className="flex w-full md:w-1/2 h-[50vh] md:h-full min-h-[400px] md:min-h-[700px] items-center justify-center relative z-10 pointer-events-auto perspective-1000 order-first md:order-last">
                 <HeroRightVisual />
             </div>
         </div>
