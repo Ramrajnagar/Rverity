@@ -1,0 +1,226 @@
+{
+    "name": "neurosync-ai",
+    "displayName": "NeuroSync AI",
+    "description": "Your AI-powered second brain for VS Code. Automatically capture context and recall memories.",
+    "version": "1.0.0",
+    "publisher": "rverity",
+    "icon": "media/icon.png",
+    "engines": {
+        "vscode": "^1.80.0"
+    },
+    "categories": [
+        "Other",
+        "Machine Learning",
+        "Snippets"
+    ],
+    "keywords": [
+        "ai",
+        "memory",
+        "context",
+        "second-brain",
+        "productivity"
+    ],
+    "activationEvents": [
+        "onStartupFinished"
+    ],
+    "main": "./dist/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "neurosync.search",
+                "title": "NeuroSync: Search Memory",
+                "icon": "$(search)"
+            },
+            {
+                "command": "neurosync.captureNote",
+                "title": "NeuroSync: Capture Quick Note",
+                "icon": "$(note)"
+            },
+            {
+                "command": "neurosync.showTimeline",
+                "title": "NeuroSync: Show Activity Timeline"
+            },
+            {
+                "command": "neurosync.toggleAutoCapture",
+                "title": "NeuroSync: Toggle Auto Capture"
+            },
+            {
+                "command": "neurosync.refreshSidebar",
+                "title": "NeuroSync: Refresh",
+                "icon": "$(refresh)"
+            },
+            {
+                "command": "neurosync.openSettings",
+                "title": "NeuroSync: Open Settings",
+                "icon": "$(settings-gear)"
+            },
+            {
+                "command": "neurosync.viewMemory",
+                "title": "NeuroSync: View Memory Details"
+            }
+        ],
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "neurosync-sidebar",
+                    "title": "NeuroSync",
+                    "icon": "media/icon.svg"
+                }
+            ]
+        },
+        "views": {
+            "neurosync-sidebar": [
+                {
+                    "id": "neurosync.recentMemories",
+                    "name": "Recent Memories"
+                },
+                {
+                    "id": "neurosync.stats",
+                    "name": "Statistics"
+                }
+            ]
+        },
+        "menus": {
+            "view/title": [
+                {
+                    "command": "neurosync.refreshSidebar",
+                    "when": "view == neurosync.recentMemories",
+                    "group": "navigation"
+                },
+                {
+                    "command": "neurosync.openSettings",
+                    "when": "view == neurosync.recentMemories",
+                    "group": "navigation"
+                }
+            ],
+            "view/item/context": [
+                {
+                    "command": "neurosync.viewMemory",
+                    "when": "view == neurosync.recentMemories"
+                }
+            ],
+            "commandPalette": [
+                {
+                    "command": "neurosync.search"
+                },
+                {
+                    "command": "neurosync.captureNote"
+                },
+                {
+                    "command": "neurosync.showTimeline"
+                },
+                {
+                    "command": "neurosync.toggleAutoCapture"
+                }
+            ]
+        },
+        "configuration": {
+            "title": "NeuroSync",
+            "properties": {
+                "neurosync.apiKey": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Your NeuroSync API key. Get one at https://rverity.ai",
+                    "order": 1
+                },
+                "neurosync.endpoint": {
+                    "type": "string",
+                    "default": "https://rverity.ai",
+                    "description": "API endpoint URL",
+                    "order": 2
+                },
+                "neurosync.autoCapture": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Automatically capture file changes",
+                    "order": 3
+                },
+                "neurosync.captureGitCommits": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Capture Git commit messages",
+                    "order": 4
+                },
+                "neurosync.captureTerminal": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Capture terminal commands (opt-in for privacy)",
+                    "order": 5
+                },
+                "neurosync.debounceMs": {
+                    "type": "number",
+                    "default": 3000,
+                    "description": "Debounce time in milliseconds for file changes",
+                    "minimum": 1000,
+                    "maximum": 10000,
+                    "order": 6
+                },
+                "neurosync.enableRealtime": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable real-time sync via WebSocket",
+                    "order": 7
+                },
+                "neurosync.enableOfflineQueue": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Queue changes when offline",
+                    "order": 8
+                },
+                "neurosync.excludePatterns": {
+                    "type": "array",
+                    "default": [
+                        "**/node_modules/**",
+                        "**/.git/**",
+                        "**/dist/**",
+                        "**/build/**",
+                        "**/.next/**"
+                    ],
+                    "description": "File patterns to exclude from capture",
+                    "order": 9
+                }
+            }
+        },
+        "keybindings": [
+            {
+                "command": "neurosync.search",
+                "key": "ctrl+shift+k",
+                "mac": "cmd+shift+k"
+            },
+            {
+                "command": "neurosync.captureNote",
+                "key": "ctrl+shift+n",
+                "mac": "cmd+shift+n"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile",
+        "lint": "eslint src --ext ts",
+        "package": "vsce package",
+        "publish": "vsce publish"
+    },
+    "devDependencies": {
+        "@types/node": "^20.0.0",
+        "@types/vscode": "^1.80.0",
+        "@typescript-eslint/eslint-plugin": "^6.0.0",
+        "@typescript-eslint/parser": "^6.0.0",
+        "@vscode/vsce": "^2.19.0",
+        "eslint": "^8.0.0",
+        "typescript": "^5.0.0"
+    },
+    "dependencies": {
+        "@neurosync/sdk": "file:../../packages/sdk"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Ramrajnagar/Rverity.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Ramrajnagar/Rverity/issues"
+    },
+    "homepage": "https://rverity.ai"
+}

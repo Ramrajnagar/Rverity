@@ -41,14 +41,14 @@ export default function DeveloperSection() {
                     <div className="space-y-2 text-zinc-300">
                         <div className="flex">
                             <span className="text-purple-400 mr-2">$</span>
-                            <span>npm install @rverity/sdk</span>
+                            <span>npm install @neurosync/sdk</span>
                         </div>
                         <div className="h-4" />
                         <div>
                             <span className="text-pink-400">import</span>
-                            <span className="text-white"> {"{ Rverity }"} </span>
+                            <span className="text-white"> {"{ NeuroSyncClient }"} </span>
                             <span className="text-pink-400">from</span>
-                            <span className="text-emerald-300"> '@rverity/sdk'</span>;
+                            <span className="text-emerald-300"> '@neurosync/sdk'</span>;
                         </div>
                         <div className="h-2" />
                         <div>
@@ -56,26 +56,47 @@ export default function DeveloperSection() {
                             <span className="text-white"> client </span>
                             <span className="text-pink-400">=</span>
                             <span className="text-blue-400"> new</span>
-                            <span className="text-yellow-300"> Rverity</span>({"{ "}
-                            <span className="text-zinc-500">/* config */</span>
-                            {" }"});
-                        </div>
-                        <div className="h-2" />
-                        <div>
-                            <span className="text-blue-400">const</span>
-                            <span className="text-white"> graph </span>
-                            <span className="text-pink-400">=</span>
-                            <span className="text-blue-400"> await</span>
-                            <span className="text-white"> client.graph.</span>
-                            <span className="text-yellow-300">query</span>({"{ "}
+                            <span className="text-yellow-300"> NeuroSyncClient</span>({"{"});
                         </div>
                         <div className="pl-4">
-                            <span className="text-emerald-300">context</span>: <span className="text-orange-300">"cursor_position"</span>,
+                            <span className="text-emerald-300">apiKey</span>: <span className="text-orange-300">'your-api-key'</span>,
                         </div>
                         <div className="pl-4">
-                            <span className="text-emerald-300">limit</span>: <span className="text-blue-400">10</span>
+                            <span className="text-emerald-300">endpoint</span>: <span className="text-orange-300">'https://rverity.ai'</span>
                         </div>
                         <div>{"});"}</div>
+                        <div className="h-2" />
+                        <div>
+                            <span className="text-zinc-500">// Capture context</span>
+                        </div>
+                        <div>
+                            <span className="text-blue-400">await</span>
+                            <span className="text-white"> client.</span>
+                            <span className="text-yellow-300">sendContext</span>(
+                        </div>
+                        <div className="pl-4">
+                            <span className="text-orange-300">'Working on auth feature'</span>,
+                        </div>
+                        <div className="pl-4">
+                            <span className="text-orange-300">'vscode'</span>,
+                        </div>
+                        <div className="pl-4">
+                            [<span className="text-orange-300">'coding'</span>, <span className="text-orange-300">'auth'</span>]
+                        </div>
+                        <div>{");"}</div>
+                        <div className="h-2" />
+                        <div>
+                            <span className="text-zinc-500">// Search memories</span>
+                        </div>
+                        <div>
+                            <span className="text-blue-400">const</span>
+                            <span className="text-white"> results </span>
+                            <span className="text-pink-400">=</span>
+                            <span className="text-blue-400"> await</span>
+                            <span className="text-white"> client.</span>
+                            <span className="text-yellow-300">search</span>(
+                            <span className="text-orange-300">'auth'</span>
+                            {");"}</div>
                     </div>
                 </div>
             </div>

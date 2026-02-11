@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import {
     Code2,
     Github,
@@ -10,6 +10,7 @@ import {
     Cloud,
     Layers,
     Cpu,
+    type LucideIcon
 } from 'lucide-react';
 import { cn } from '@/lib/utils'; // Assuming this utility exists, otherwise I'll replace it
 
@@ -27,7 +28,7 @@ const TechNode = ({
     color = "bg-blue-500",
     glowColor = "shadow-blue-500/50"
 }: {
-    icon: any,
+    icon: LucideIcon,
     label: string,
     x: number,
     y: number,
@@ -55,9 +56,9 @@ const TechNode = ({
                 }}
                 transition={{
                     repeat: Infinity,
-                    duration: 3 + Math.random() * 2,
+                    duration: 4,
                     ease: "easeInOut",
-                    delay: Math.random() * 2 // Randomize float phase
+                    delay: delay * 0.3
                 }}
                 className={cn(
                     "relative flex flex-col items-center justify-center group cursor-pointer",
@@ -115,7 +116,7 @@ const ConnectionLine = ({ angle, distance }: { angle: number, distance: number }
                     duration: 2,
                     repeat: Infinity,
                     ease: "linear",
-                    delay: Math.random() * 2
+                    delay: angle * 0.01
                 }}
             />
 
@@ -131,7 +132,7 @@ const ConnectionLine = ({ angle, distance }: { angle: number, distance: number }
                     duration: 3,
                     repeat: Infinity,
                     ease: "linear",
-                    delay: Math.random() * 2
+                    delay: angle * 0.015
                 }}
             />
         </div>

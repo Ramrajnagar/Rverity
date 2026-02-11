@@ -1,46 +1,70 @@
 'use client';
 
 import { Flame, Zap, Database } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
+import type { LucideIcon } from 'lucide-react';
 
-export function StatsWidget({ memories, connected }: { memories: any[], connected: boolean }) {
-    // Calculate stats from memories
-    const totalMemories = memories.length;
+interface Memory {
+    created_at: string;
+}
 
-    // Calculate rate (memories in last 60 seconds)
-    const now = Date.now();
-    const recentMemories = memories.filter(m => {
-        const time = new Date(m.payload.timestamp).getTime();
-        return (now - time) < 60000;
-    }).length;
+interface StatsWidgetProps {
+    memories: Memory[];
+    connected: boolean;
+}
 
-    // Calculate streak (unique days in memories)
-    const uniqueDays = new Set(memories.map(m => {
-        const date = new Date(m.payload.timestamp);
-        return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
-    }));
-    const streak = uniqueDays.size;
+type ColorKey = 'purple' | 'emerald' | 'cyan' | 'orange' | 'yellow';
+
+interface StatBoxProps {
+    icon: LucideIcon;
+    label: string;
+    value: string;
+    color: ColorKey;
+    sub: string;
+}
+
+export function StatsWidget({ memories, connected }: StatsWidgetProps) {
+    // Calculate stats from memories using useMemo to avoid purity violations
+    const stats = useMemo(() => {
+        const now = Date.now();
+        const totalMemories = memories.length;
+
+        // Calculate rate (memories in last 60 seconds)
+        const recentMemories = memories.filter(m => {
+            const time = new Date(m.created_at).getTime();
+            return (now - time) < 60000;
+        }).length;
+
+        // Calculate streak (unique days in memories)
+        const uniqueDays = new Set(memories.map(m => {
+            const date = new Date(m.created_at);
+            return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+        }));
+        const streak = uniqueDays.size;
+
+        return { totalMemories, recentMemories, streak };
+    }, [memories]);
 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 h-full">
             <StatBox
                 icon={Flame}
                 label="Neural Streak"
-                value={`${streak} Days`}
+                value={`${stats.streak} Days`}
                 color="purple"
-                sub={streak > 0 ? "Keep it up!" : "Start today"}
+                sub={stats.streak > 0 ? "Keep it up!" : "Start today"}
             />
             <StatBox
                 icon={Zap}
                 label="Signal Rate"
-                value={`${recentMemories}/min`}
+                value={`${stats.recentMemories}/min`}
                 color="emerald"
-                sub={recentMemories > 5 ? "High Traffic" : "Normal"}
+                sub={stats.recentMemories > 5 ? "High Traffic" : "Normal"}
             />
             <StatBox
                 icon={Database}
                 label="Total Memories"
-                value={totalMemories.toLocaleString()}
+                value={stats.totalMemories.toLocaleString()}
                 color="cyan"
                 sub="Lifetime"
             />
@@ -57,17 +81,15 @@ export function StatsWidget({ memories, connected }: { memories: any[], connecte
     );
 }
 
-function StatBox({ icon: Icon, label, value, color, sub }: any) {
-    const colors = {
+function StatBox({ icon: Icon, label, value, color, sub }: StatBoxProps) {
+    const colors: Record<ColorKey, string> = {
         purple: 'text-purple-400 bg-purple-500/10 border-purple-500/20',
         emerald: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
         cyan: 'text-cyan-400 bg-cyan-500/10 border-cyan-500/20',
-        // Fallbacks
         orange: 'text-orange-400 bg-orange-500/10 border-orange-500/20',
         yellow: 'text-yellow-400 bg-yellow-500/10 border-yellow-500/20',
     };
 
-    // @ts-ignore
     const theme = colors[color] || colors.cyan;
 
     return (

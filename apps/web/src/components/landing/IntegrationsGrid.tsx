@@ -1,7 +1,7 @@
 "use client";
 
 import Section from "@/components/ui/Section";
-import { Github, Chrome, Code2, Terminal, Laptop, Globe, ArrowUpRight } from "lucide-react";
+import { Github, Chrome, Code2, Terminal, Laptop, Globe, ArrowUpRight, MessageSquare, FileText, BookOpen } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
@@ -46,6 +46,36 @@ export default function IntegrationsGrid() {
             border: "group-hover:border-yellow-500/50",
             shadow: "group-hover:shadow-[0_0_30px_-5px_rgba(234,179,8,0.3)]",
             href: "/docs/api"
+        },
+        {
+            title: "Slack",
+            description: "Capture critical discussions and decisions from your workspace.",
+            icon: MessageSquare,
+            color: "text-rose-500",
+            bg: "bg-rose-500/10",
+            border: "group-hover:border-rose-500/50",
+            shadow: "group-hover:shadow-[0_0_30px_-5px_rgba(244,63,94,0.3)]",
+            href: "/integrations/slack"
+        },
+        {
+            title: "Notion",
+            description: "Sync your knowledge base and keep docs up to date.",
+            icon: FileText,
+            color: "text-emerald-500",
+            bg: "bg-emerald-500/10",
+            border: "group-hover:border-emerald-500/50",
+            shadow: "group-hover:shadow-[0_0_30px_-5px_rgba(16,185,129,0.3)]",
+            href: "/integrations/notion"
+        },
+        {
+            title: "Obsidian",
+            description: "Connect your second brain. Sync markdown notes and backlinks.",
+            icon: BookOpen,
+            color: "text-violet-500",
+            bg: "bg-violet-500/10",
+            border: "group-hover:border-violet-500/50",
+            shadow: "group-hover:shadow-[0_0_30px_-5px_rgba(139,92,246,0.3)]",
+            href: "/integrations/obsidian"
         },
     ];
 

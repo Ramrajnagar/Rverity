@@ -1,0 +1,27 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="64" cy="64" r="60" fill="#a855f7"/>
+  
+  <!-- Brain icon -->
+  <g fill="#ffffff">
+    <!-- Left hemisphere -->
+    <path d="M 45 35 Q 35 35 30 45 Q 28 55 32 65 Q 35 75 40 80 Q 45 85 50 85 Q 55 85 58 80 L 58 45 Q 55 35 45 35 Z"/>
+    
+    <!-- Right hemisphere -->
+    <path d="M 83 35 Q 93 35 98 45 Q 100 55 96 65 Q 93 75 88 80 Q 83 85 78 85 Q 73 85 70 80 L 70 45 Q 73 35 83 35 Z"/>
+    
+    <!-- Connection -->
+    <rect x="58" y="55" width="12" height="15" rx="2"/>
+    
+    <!-- Neural nodes -->
+    <circle cx="42" cy="50" r="3"/>
+    <circle cx="48" cy="60" r="3"/>
+    <circle cx="42" cy="70" r="3"/>
+    <circle cx="86" cy="50" r="3"/>
+    <circle cx="80" cy="60" r="3"/>
+    <circle cx="86" cy="70" r="3"/>
+  </g>
+  
+  <!-- Accent glow -->
+  <circle cx="64" cy="64" r="60" fill="none" stroke="#10b981" stroke-width="2" opacity="0.5"/>
+</svg>

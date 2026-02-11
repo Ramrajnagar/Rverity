@@ -1,15 +1,49 @@
 {
     "name": "@neurosync/sdk",
     "version": "1.0.0",
+    "description": "Official TypeScript/JavaScript SDK for NeuroSync AI - Your AI-powered second brain",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
     "scripts": {
-        "build": "tsc"
+        "build": "tsc",
+        "dev": "tsc --watch",
+        "clean": "rm -rf dist",
+        "prepublishOnly": "npm run clean && npm run build"
     },
+    "keywords": [
+        "neurosync",
+        "rverity",
+        "ai",
+        "memory",
+        "knowledge-graph",
+        "second-brain",
+        "context",
+        "sdk",
+        "typescript"
+    ],
+    "author": "Rverity Team",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Ramrajnagar/Rverity.git",
+        "directory": "packages/sdk"
+    },
+    "bugs": {
+        "url": "https://github.com/Ramrajnagar/Rverity/issues"
+    },
+    "homepage": "https://rverity.ai",
     "devDependencies": {
-        "typescript": "^5.0.0"
-    },
-    "dependencies": {
+        "typescript": "^5.0.0",
         "@types/node": "^20.0.0"
+    },
+    "dependencies": {},
+    "peerDependencies": {},
+    "engines": {
+        "node": ">=18.0.0"
     }
 }

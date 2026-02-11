@@ -2,7 +2,7 @@
 
 import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Points, PointMaterial, Sphere, MeshDistortMaterial, Float, Icosahedron, Torus, Octahedron, MeshTransmissionMaterial } from "@react-three/drei";
+import { Points, PointMaterial, Sphere, Float, Icosahedron, Torus, Octahedron, MeshTransmissionMaterial } from "@react-three/drei";
 import * as THREE from "three";
 
 function inSphere(array: Float32Array, options: { radius: number }) {
@@ -20,8 +20,8 @@ function inSphere(array: Float32Array, options: { radius: number }) {
     return array;
 }
 
-function ParticleField(props: any) {
-    const ref = useRef<any>(null);
+function ParticleField() {
+    const ref = useRef<THREE.Points>(null);
     const [sphere] = useMemo(() => {
         const data = inSphere(new Float32Array(6000), { radius: 10 });
         return [data];
@@ -42,7 +42,7 @@ function ParticleField(props: any) {
 
     return (
         <group rotation={[0, 0, Math.PI / 4]}>
-            <Points ref={ref} positions={sphere} stride={3} frustumCulled={false} {...props}>
+            <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
                 <PointMaterial
                     transparent
                     color="#a855f7" // Electric Purple
@@ -64,6 +64,18 @@ function CyberneticMachine({ position = [2.5, 0, 0] }: { position?: [number, num
     const ring3Ref = useRef<THREE.Mesh>(null);
     const coreRef = useRef<THREE.Mesh>(null);
     const lightRef = useRef<THREE.PointLight>(null);
+
+    // Generate random values once using useMemo to avoid purity violations
+    const floatingShards = useMemo(() => {
+        return Array.from({ length: 12 }, () => ({
+            speed: 3 + Math.random(),
+            position: [
+                (Math.random() - 0.5) * 6,
+                (Math.random() - 0.5) * 6,
+                (Math.random() - 0.5) * 6
+            ] as [number, number, number]
+        }));
+    }, []);
 
     // Mouse interaction state
     useFrame((state) => {
@@ -119,7 +131,7 @@ function CyberneticMachine({ position = [2.5, 0, 0] }: { position?: [number, num
 
     return (
         <>
-            <group ref={groupRef} position={position as any}>
+            <group ref={groupRef} position={position}>
                 <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
 
                     {/* 1. Reactor Core: Glass Shell */}
@@ -161,13 +173,9 @@ function CyberneticMachine({ position = [2.5, 0, 0] }: { position?: [number, num
 
                     {/* 5. Floating Shards (Data Bits) */}
                     <group>
-                        {[...Array(12)].map((_, i) => (
-                            <Float key={i} speed={3 + Math.random()} rotationIntensity={2} floatIntensity={2}>
-                                <Octahedron args={[0.15, 0]} position={[
-                                    (Math.random() - 0.5) * 6,
-                                    (Math.random() - 0.5) * 6,
-                                    (Math.random() - 0.5) * 6
-                                ]}>
+                        {floatingShards.map((shard, i) => (
+                            <Float key={i} speed={shard.speed} rotationIntensity={2} floatIntensity={2}>
+                                <Octahedron args={[0.15, 0]} position={shard.position}>
                                     <meshStandardMaterial color="#60a5fa" emissive="#60a5fa" emissiveIntensity={2} toneMapped={false} />
                                 </Octahedron>
                             </Float>

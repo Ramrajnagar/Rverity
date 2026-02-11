@@ -3,6 +3,8 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { redis } from '@/lib/redis';
+import { ApiKeyService } from '@/lib/api-keys';
+import { supabaseAdmin } from '@/lib/supabase-admin';
 
 const createMemorySchema = z.object({
     content: z.string().min(1, 'Content is required'),
@@ -12,37 +14,50 @@ const createMemorySchema = z.object({
 
 export async function POST(request: Request) {
     try {
-        const cookieStore = await cookies();
+        let user: { id: string } | null = null;
+        let supabase: any;
 
-        const supabase = createServerClient(
-            process.env.NEXT_PUBLIC_SUPABASE_URL!,
-            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-            {
-                cookies: {
-                    getAll() {
-                        return cookieStore.getAll()
-                    },
-                    setAll(cookiesToSet) {
-                        try {
-                            cookiesToSet.forEach(({ name, value, options }) =>
-                                cookieStore.set(name, value, options)
-                            )
-                        } catch {
-                            // The `setAll` method was called from a Server Component.
-                            // This can be ignored if you have middleware refreshing
-                            // user sessions.
-                        }
-                    },
-                },
+        // 1. Check for API Key first (Authorization header)
+        const authHeader = request.headers.get('Authorization');
+        if (authHeader?.startsWith('Bearer ')) {
+            const token = authHeader.split(' ')[1];
+            const userId = await ApiKeyService.verifyKey(token);
+            if (userId) {
+                user = { id: userId };
+                supabase = supabaseAdmin;
             }
-        );
-        const { data: { session } } = await supabase.auth.getSession();
-
-        if (!session) {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const user = session.user;
+        // 2. Fallback to Cookie Auth if no valid API key
+        if (!user) {
+            const cookieStore = await cookies();
+            supabase = createServerClient(
+                process.env.NEXT_PUBLIC_SUPABASE_URL!,
+                process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+                {
+                    cookies: {
+                        getAll() {
+                            return cookieStore.getAll()
+                        },
+                        setAll(cookiesToSet) {
+                            try {
+                                cookiesToSet.forEach(({ name, value, options }) =>
+                                    cookieStore.set(name, value, options)
+                                )
+                            } catch { }
+                        },
+                    },
+                }
+            );
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                user = session.user;
+            }
+        }
+
+        if (!user) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
         const body = await request.json();
         const { content, tags = [], source = 'api' } = createMemorySchema.parse(body);
 
@@ -111,38 +126,54 @@ export async function POST(request: Request) {
 
 export async function GET(request: Request) {
     try {
-        const cookieStore = await cookies();
+        let user: { id: string } | null = null;
+        let supabase: any;
 
-        const supabase = createServerClient(
-            process.env.NEXT_PUBLIC_SUPABASE_URL!,
-            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-            {
-                cookies: {
-                    getAll() {
-                        return cookieStore.getAll()
-                    },
-                    setAll(cookiesToSet) {
-                        try {
-                            cookiesToSet.forEach(({ name, value, options }) =>
-                                cookieStore.set(name, value, options)
-                            )
-                        } catch {
-                            // The `setAll` method was called from a Server Component.
-                            // This can be ignored if you have middleware refreshing
-                            // user sessions.
-                        }
-                    },
-                },
+        // 1. Check for API Key first (Authorization header)
+        const authHeader = request.headers.get('Authorization');
+        if (authHeader?.startsWith('Bearer ')) {
+            const token = authHeader.split(' ')[1];
+            // Ensure ApiKeyService is imported
+            const userId = await ApiKeyService.verifyKey(token);
+            if (userId) {
+                user = { id: userId };
+                supabase = supabaseAdmin;
             }
-        );
-
-        const { data: { session } } = await supabase.auth.getSession();
-
-        if (!session) {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const user = session.user;
+        // 2. Fallback to Supabase Auth (Cookies)
+        if (!user) {
+            const cookieStore = await cookies();
+            supabase = createServerClient(
+                process.env.NEXT_PUBLIC_SUPABASE_URL!,
+                process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+                {
+                    cookies: {
+                        getAll() {
+                            return cookieStore.getAll()
+                        },
+                        setAll(cookiesToSet) {
+                            try {
+                                cookiesToSet.forEach(({ name, value, options }) =>
+                                    cookieStore.set(name, value, options)
+                                )
+                            } catch {
+                                // The `setAll` method was called from a Server Component.
+                            }
+                        },
+                    },
+                }
+            );
+
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                user = session.user;
+            }
+        }
+
+        if (!user) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
         const { searchParams } = new URL(request.url);
         const limit = parseInt(searchParams.get('limit') || '20');
 
@@ -157,13 +188,11 @@ export async function GET(request: Request) {
         if (!error && data) {
             const memories = data.map((d: any) => ({
                 id: d.id,
-                payload: {
-                    content: d.content,
-                    source: d.source,
-                    tags: d.tags,
-                    timestamp: d.created_at,
-                    persistentId: d.id
-                }
+                content: d.content,
+                source: d.source,
+                tags: d.tags,
+                created_at: d.created_at,
+                metadata: d.metadata
             }));
             return NextResponse.json({ memories });
         }

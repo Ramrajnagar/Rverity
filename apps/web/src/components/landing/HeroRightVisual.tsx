@@ -13,15 +13,27 @@ import {
     PerspectiveCamera,
     Stars
 } from "@react-three/drei";
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import * as THREE from "three";
 
 function AdvancedHyperCore() {
     const mainGroupRef = useRef<THREE.Group>(null); // Main container for the whole machine
     const meshRef = useRef<THREE.Mesh>(null);
-    const outerRef = useRef<THREE.Group>(null);
+    const outerRef = useRef<THREE.Mesh>(null);
     const innerRef = useRef<THREE.Group>(null);
     const ringRef = useRef<THREE.Group>(null);
+
+    // Generate random values once using useMemo to avoid purity violations
+    const satelliteNodes = useMemo(() => {
+        return Array.from({ length: 6 }, () => ({
+            speed: 3 + Math.random(),
+            position: [
+                (Math.random() - 0.5) * 8,
+                (Math.random() - 0.5) * 8,
+                (Math.random() - 0.5) * 8
+            ] as [number, number, number]
+        }));
+    }, []);
 
     useFrame((state) => {
         const t = state.clock.getElapsedTime();
@@ -104,7 +116,7 @@ function AdvancedHyperCore() {
                 </Sphere>
 
                 {/* 3. Crystalline Containment - Glass Icosahedron */}
-                <Icosahedron args={[2.5, 0]} ref={outerRef as any}>
+                <Icosahedron args={[2.5, 0]} ref={outerRef}>
                     <MeshTransmissionMaterial
                         roughness={0}
                         metalness={0.2}
@@ -154,13 +166,9 @@ function AdvancedHyperCore() {
                 />
 
                 {/* Floating Satellite Nodes */}
-                {[...Array(6)].map((_, i) => (
-                    <Float key={i} speed={3 + Math.random()} rotationIntensity={2} floatIntensity={1}>
-                        <Octahedron args={[0.2, 0]} position={[
-                            (Math.random() - 0.5) * 8,
-                            (Math.random() - 0.5) * 8,
-                            (Math.random() - 0.5) * 8
-                        ]}>
+                {satelliteNodes.map((node, i) => (
+                    <Float key={i} speed={node.speed} rotationIntensity={2} floatIntensity={1}>
+                        <Octahedron args={[0.2, 0]} position={node.position}>
                             <meshStandardMaterial color="#10b981" emissive="#10b981" emissiveIntensity={2} toneMapped={false} />
                         </Octahedron>
                     </Float>

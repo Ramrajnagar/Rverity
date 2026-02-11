@@ -29,39 +29,92 @@ export default function ApiDocsPage() {
 
                     {/* Stats Grid */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-                        <Stat label="Base URL" value="api.rverity.ai/v1" />
+                        <Stat label="Base URL" value="rverity.ai/v1" />
                         <Stat label="Auth" value="Bearer Token" />
-                        <Stat label="Rate Limit" value="1000 req/hr" />
-                        <Stat label="Protocol" value="REST + WebSocket" />
+                        <Stat label="Endpoints" value="14 Available" />
+                        <Stat label="Protocol" value="REST + JSON" />
                     </div>
 
                     {/* Endpoints */}
                     <div className="space-y-8">
+                        <h2 className="text-2xl font-bold text-white mb-6">Memory Management</h2>
+
                         <Endpoint
-                            method="GET"
-                            path="/memory"
-                            title="Retrieve Context"
-                            description="Fetch synchronized memory fragments based on vector similarity search."
+                            method="POST"
+                            path="/v1/memory"
+                            title="Create Memory"
+                            description="Create a single memory with content, source, tags, and metadata."
                         />
                         <Endpoint
                             method="POST"
-                            path="/memory"
-                            title="Inject Thought"
-                            description="Push a new memory fragment into the graph. Content is automatically vectorized."
+                            path="/v1/memory/batch"
+                            title="Batch Create Memories"
+                            description="Create up to 100 memories in a single request for efficient bulk operations."
                         />
                         <Endpoint
                             method="GET"
-                            path="/graph/topology"
-                            title="Graph Topology"
-                            description="Get the full node-link structure for 3D visualization."
+                            path="/v1/memory"
+                            title="List Memories"
+                            description="Retrieve all memories for the authenticated user with pagination support."
                         />
                         <Endpoint
-                            method="WS"
-                            path="/stream"
-                            title="Neural Stream"
-                            description="Real-time WebSocket connection for live updates and syncing."
-                            color="text-yellow-400"
-                            badge="bg-yellow-500/10 border-yellow-500/20"
+                            method="GET"
+                            path="/v1/memory/:id"
+                            title="Get Single Memory"
+                            description="Fetch a specific memory by its unique identifier."
+                        />
+                        <Endpoint
+                            method="PUT"
+                            path="/v1/memory/:id"
+                            title="Update Memory"
+                            description="Update content, tags, or metadata of an existing memory."
+                        />
+                        <Endpoint
+                            method="DELETE"
+                            path="/v1/memory/:id"
+                            title="Delete Memory"
+                            description="Permanently delete a memory from your collection."
+                        />
+
+                        <h2 className="text-2xl font-bold text-white mb-6 mt-12">Search & Discovery</h2>
+
+                        <Endpoint
+                            method="GET"
+                            path="/v1/memory/search"
+                            title="Advanced Search"
+                            description="Search memories with filters for text, sources, tags, and date ranges."
+                        />
+                        <Endpoint
+                            method="GET"
+                            path="/v1/memory/:id/related"
+                            title="Related Memories"
+                            description="Find similar memories based on tags, content overlap, source, and temporal proximity."
+                        />
+
+                        <h2 className="text-2xl font-bold text-white mb-6 mt-12">Analytics</h2>
+
+                        <Endpoint
+                            method="GET"
+                            path="/v1/insights"
+                            title="Memory Insights"
+                            description="Get analytics on memory patterns, sources, tags, and activity distribution."
+                        />
+                        <Endpoint
+                            method="GET"
+                            path="/v1/stats"
+                            title="Activity Statistics"
+                            description="Retrieve daily, weekly, monthly counts, and activity streak information."
+                        />
+
+                        <h2 className="text-2xl font-bold text-white mb-6 mt-12">System</h2>
+
+                        <Endpoint
+                            method="GET"
+                            path="/v1/health"
+                            title="Health Check"
+                            description="Check API status and availability."
+                            color="text-green-400"
+                            badge="bg-green-500/10 border-green-500/20"
                         />
                     </div>
                 </div>

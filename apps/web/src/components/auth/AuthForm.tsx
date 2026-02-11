@@ -32,22 +32,29 @@ export function AuthForm({ type }: AuthFormProps) {
                 if (error) throw error;
 
                 if (data.session) {
-                    router.push('/dashboard');
+                    // Use window.location for hard redirect to ensure cookies are set
+                    window.location.href = '/dashboard';
                 } else {
-                    alert('Account created! Please sign in.');
-                    router.push('/login');
+                    alert('Account created! Please check your email to verify.');
+                    setLoading(false);
                 }
             } else {
-                const { error } = await supabase.auth.signInWithPassword({
+                const { data, error } = await supabase.auth.signInWithPassword({
                     email,
                     password,
                 });
                 if (error) throw error;
-                router.push('/dashboard');
+
+                // Verify session is set
+                if (data.session) {
+                    // Use window.location for hard redirect to ensure cookies are set
+                    window.location.href = '/dashboard';
+                } else {
+                    throw new Error('Login failed - no session created');
+                }
             }
         } catch (err: any) {
             setError(err.message);
-        } finally {
             setLoading(false);
         }
     };
