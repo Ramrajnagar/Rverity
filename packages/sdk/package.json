@@ -30,13 +30,13 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Ramrajnagar/Rverity.git",
+        "url": "https://github.com/Ramrajnagar/neurosync-ai.git",
         "directory": "packages/sdk"
     },
     "bugs": {
-        "url": "https://github.com/Ramrajnagar/Rverity/issues"
+        "url": "https://github.com/Ramrajnagar/neurosync-ai/issues"
     },
-    "homepage": "https://rverity.ai",
+    "homepage": "https://github.com/Ramrajnagar/neurosync-ai",
     "devDependencies": {
         "typescript": "^5.0.0",
         "@types/node": "^20.0.0"

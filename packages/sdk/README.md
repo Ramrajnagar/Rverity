@@ -416,17 +416,15 @@ MIT License - see [LICENSE](../../LICENSE) for details.
 
 ## 🔗 Links
 
-- [Documentation](https://rverity.ai/docs)
-- [API Reference](https://rverity.ai/docs/api)
-- [GitHub](https://github.com/Ramrajnagar/Rverity)
-- [Discord Community](https://discord.gg/rverity)
+- [Documentation](http://localhost:3000/docs)
+- [API Reference](http://localhost:3000/docs/api)
+- [GitHub](https://github.com/Ramrajnagar/neurosync-ai)
 
 ## 💬 Support
 
-- 📧 Email: support@rverity.ai
-- 💬 Discord: [Join our community](https://discord.gg/rverity)
-- 🐛 Issues: [GitHub Issues](https://github.com/Ramrajnagar/Rverity/issues)
+- 📧 Email: support@neurosync.ai
+- 🐛 Issues: [GitHub Issues](https://github.com/Ramrajnagar/neurosync-ai/issues)
 
 ---
 
-Built with ❤️ by the Rverity Team
+Built with ❤️ by the NeuroSync Team

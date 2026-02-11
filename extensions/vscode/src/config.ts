@@ -34,7 +34,7 @@ export class ConfigManager {
     getConfig(): ExtensionConfig {
         return {
             apiKey: this.config.get<string>('apiKey', ''),
-            endpoint: this.config.get<string>('endpoint', 'https://rverity.ai'),
+            endpoint: this.config.get<string>('endpoint', 'http://localhost:3000'),
             autoCapture: this.config.get<boolean>('autoCapture', true),
             captureGitCommits: this.config.get<boolean>('captureGitCommits', true),
             captureTerminal: this.config.get<boolean>('captureTerminal', false),

@@ -13,7 +13,7 @@ export interface ExtensionConfig {
 
 const DEFAULT_CONFIG: ExtensionConfig = {
     apiKey: '',
-    endpoint: 'https://rverity.ai',
+    endpoint: 'http://localhost:3000',
     autoCapture: true,
     captureHistory: true,
     captureBookmarks: true,

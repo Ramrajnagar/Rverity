@@ -300,6 +300,9 @@ View your GitHub activity in the dashboard:
 - Commits per day/week/month
 - Most active repositories
 - PR review patterns
+- **Homepage URL**: `http://localhost:3000` (or your deployed URL)
+- **Callback URL**: `http://localhost:3000/api/github/callback`
+- **Webhook URL**: `http://localhost:3000/api/github/webhook` (use ngrok for local dev)
 - Issue resolution time
 - Collaboration insights
 
@@ -307,10 +310,10 @@ View your GitHub activity in the dashboard:
 
 ## 🤝 Support
 
-- 📧 Email: support@rverity.ai
+- 📧 Email: support@neurosync.ai
 - 💬 Discord: [Join our community](https://discord.gg/rverity)
-- 🐛 Issues: [GitHub Issues](https://github.com/Ramrajnagar/Rverity/issues)
-- 📖 Docs: [rverity.ai/docs/github](https://rverity.ai/docs/github)
+- 🐛 Issues: [GitHub Issues](https://github.com/Ramrajnagar/neurosync-ai/issues)
+- 📖 Docs: [neurosync.ai/docs/github](http://localhost:3000/docs/github)
 
 ---
 

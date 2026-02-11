@@ -2,7 +2,7 @@ import { NeuroSyncClient, type ContextItem } from '../src';
 
 const client = new NeuroSyncClient({
     apiKey: 'your-api-key-here',
-    endpoint: 'https://rverity.ai',
+    endpoint: 'http://localhost:3000',
     enableOfflineQueue: true,
     debug: true
 });

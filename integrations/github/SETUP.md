@@ -14,9 +14,9 @@ This guide will help you set up the NeuroSync GitHub App.
 2. Click "New GitHub App"
 3. Fill in the details:
    - **GitHub App name**: `NeuroSync AI`
-   - **Homepage URL**: `https://rverity.ai`
-   - **Callback URL**: `https://rverity.ai/api/github/callback`
-   - **Webhook URL**: `https://rverity.ai/api/github/webhook`
+   - **Homepage URL**: `http://localhost:3000`
+   - **Callback URL**: `http://localhost:3000/api/github/callback`
+   - **Webhook URL**: `http://localhost:3000/api/github/webhook` (or your ngrok URL)
    - **Webhook secret**: Generate a random secret (save this!)
 
 4. Set permissions:

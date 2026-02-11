@@ -3,7 +3,7 @@ import { NeuroSyncClient } from '../src';
 // Basic initialization
 const client = new NeuroSyncClient({
     apiKey: 'your-api-key-here',
-    endpoint: 'https://rverity.ai', // or http://localhost:3001 for local
+    endpoint: 'http://localhost:3000', // or http://localhost:3001 for local
     debug: true
 });
 

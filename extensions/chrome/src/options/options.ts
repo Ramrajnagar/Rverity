@@ -45,7 +45,7 @@ async function saveConfig() {
 
         const config = {
             apiKey,
-            endpoint: endpoint || 'https://rverity.ai',
+            endpoint: endpoint || 'http://localhost:3000',
             autoCapture: (document.getElementById('autoCapture') as HTMLInputElement).checked,
             captureHistory: (document.getElementById('captureHistory') as HTMLInputElement).checked,
             captureBookmarks: (document.getElementById('captureBookmarks') as HTMLInputElement).checked,
@@ -87,7 +87,7 @@ async function resetConfig() {
 
     await ConfigManager.setConfig({
         apiKey: '',
-        endpoint: 'https://rverity.ai',
+        endpoint: 'http://localhost:3000',
         autoCapture: true,
         captureHistory: true,
         captureBookmarks: true,

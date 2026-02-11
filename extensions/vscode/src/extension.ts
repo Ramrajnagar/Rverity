@@ -132,7 +132,7 @@ export async function activate(context: vscode.ExtensionContext) {
         if (action === 'Get Started') {
             vscode.commands.executeCommand('workbench.action.openSettings', 'neurosync');
         } else if (action === 'Learn More') {
-            vscode.env.openExternal(vscode.Uri.parse('https://rverity.ai/docs'));
+            vscode.env.openExternal(vscode.Uri.parse('http://localhost:3000/docs'));
         }
 
         await context.globalState.update('hasShownWelcome', true);

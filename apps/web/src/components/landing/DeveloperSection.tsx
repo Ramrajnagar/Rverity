@@ -62,7 +62,7 @@ export default function DeveloperSection() {
                             <span className="text-emerald-300">apiKey</span>: <span className="text-orange-300">'your-api-key'</span>,
                         </div>
                         <div className="pl-4">
-                            <span className="text-emerald-300">endpoint</span>: <span className="text-orange-300">'https://rverity.ai'</span>
+                            <span className="text-emerald-300">endpoint</span>: <span className="text-orange-300">'http://localhost:3000'</span>
                         </div>
                         <div>{"});"}</div>
                         <div className="h-2" />

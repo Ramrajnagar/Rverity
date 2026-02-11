@@ -200,10 +200,10 @@ extensions/chrome/
 
 ## 🤝 Support
 
-- 📧 Email: support@rverity.ai
+- 📧 Email: support@neurosync.ai
 - 💬 Discord: [Join our community](https://discord.gg/rverity)
-- 🐛 Issues: [GitHub Issues](https://github.com/Ramrajnagar/Rverity/issues)
-- 📖 Docs: [rverity.ai/docs](https://rverity.ai/docs)
+- 🐛 Issues: [GitHub Issues](https://github.com/Ramrajnagar/neurosync-ai/issues)
+- 📖 Docs: [neurosync.ai/docs](http://localhost:3000/docs)
 
 ## 📝 License
 

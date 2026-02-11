@@ -24,12 +24,12 @@ export default function ApiDocsPage() {
                         API <span className="text-cyan-400">REFERENCE</span>
                     </h1>
                     <p className="text-xl text-zinc-400 mb-8">
-                        Direct programmatic access to the Rverity Cortex.
+                        Direct programmatic access to the NeuroSync Cortex.
                     </p>
 
                     {/* Stats Grid */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-                        <Stat label="Base URL" value="rverity.ai/v1" />
+                        <Stat label="Base URL" value="http://localhost:3000/api" />
                         <Stat label="Auth" value="Bearer Token" />
                         <Stat label="Endpoints" value="14 Available" />
                         <Stat label="Protocol" value="REST + JSON" />
