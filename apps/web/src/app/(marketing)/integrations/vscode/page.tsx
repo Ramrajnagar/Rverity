@@ -10,7 +10,7 @@ export default function VSCodePage() {
             description="Automatically capture your coding context, file changes, and Git commits. Build a comprehensive memory of your development work without manual effort."
             icon={Code2}
             installCommand="Download from VS Code Marketplace or install manually"
-            downloadLink="https://github.com/Ramrajnagar/Rverity/tree/main/extensions/vscode"
+            downloadLink="https://github.com/Ramrajnagar/neurosync-ai/tree/main/extensions/vscode"
             docsLink="/docs"
             features={[
                 "Automatic file change tracking with intelligent debouncing to reduce noise",
@@ -33,8 +33,8 @@ export default function VSCodePage() {
                 },
                 {
                     title: "Configure API Key",
-                    description: "Navigate to VS Code settings and enter your Rverity API key to enable synchronization with your account.",
-                    code: "Settings → Rverity → API Key → Enter your key from dashboard"
+                    description: "Navigate to VS Code settings and enter your NeuroSync API key to enable synchronization with your account.",
+                    code: "Settings → NeuroSync → API Key → Enter your key from dashboard"
                 },
                 {
                     title: "Start Capturing",
@@ -53,7 +53,7 @@ export default function VSCodePage() {
 // Type your note and press Enter to save
 
 // Search Memories
-// Press Ctrl+Shift+P → "Rverity: Search Memories"
+// Press Ctrl+Shift+P → "NeuroSync: Search Memories"
 // Enter search query to find relevant context
 // Results display with source, timestamp, and content preview`}
         />

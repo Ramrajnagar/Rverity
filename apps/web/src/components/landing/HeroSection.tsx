@@ -33,7 +33,7 @@ export default function HeroSection() {
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                         </span>
                         <span className="text-xs font-mono font-bold text-emerald-400 tracking-widest uppercase">
-                            Rverity System Online v2.0
+                            NeuroSync System Online v2.0
                         </span>
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-12 translate-x-[-200%] group-hover:animate-shine" />
                     </div>
@@ -59,7 +59,7 @@ export default function HeroSection() {
                     >
                         <SecurityTypewriter texts={["[ROOT_ACCESS_GRANTED]", "[ROOT_ACCESS_DENIED]"]} className="text-sm mr-2" speed={50} />
                         The missing neural link between your code, docs, and fragmented existence.
-                        <span className="text-white font-bold glow-text"> Rverity </span>
+                        <span className="text-white font-bold glow-text"> NeuroSync </span>
                         unifies your digital footprint into one living, queryable graph.
                     </motion.p>
 

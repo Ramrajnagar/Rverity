@@ -11,7 +11,7 @@ export default function Footer() {
                         <RverityLogo />
                     </Link>
                     <p className="text-sm">
-                        The absolute truth for your digital life.
+                        Your digital memory for the AI age.
                     </p>
                     <div className="flex gap-4">
                         <Link href="#" className="hover:text-white"><Github className="h-5 w-5" /></Link>
@@ -46,7 +46,7 @@ export default function Footer() {
                 </div>
             </div>
             <div className="mt-12 text-center text-xs opacity-50">
-                © {new Date().getFullYear()} Rverity Inc. All rights reserved.
+                © {new Date().getFullYear()} NeuroSync Inc. All rights reserved.
             </div>
         </footer>
     );

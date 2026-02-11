@@ -82,7 +82,7 @@ export default function IntegrationDetail({
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
                     >
-                        Rverity for <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">{title}</span>
+                        NeuroSync for <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">{title}</span>
                     </motion.h1>
 
                     <motion.p
