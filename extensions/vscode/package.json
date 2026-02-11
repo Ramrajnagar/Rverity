@@ -120,13 +120,13 @@
                 "neurosync.apiKey": {
                     "type": "string",
                     "default": "",
-                    "description": "Your NeuroSync API key. Get one at https://rverity.ai",
+                    "description": "Your NeuroSync API key. Get one from your local dashboard (http://localhost:3000/settings)",
                     "order": 1
                 },
                 "neurosync.endpoint": {
                     "type": "string",
-                    "default": "https://rverity.ai",
-                    "description": "API endpoint URL",
+                    "default": "http://localhost:3000",
+                    "description": "API endpoint URL (e.g. http://localhost:3000)",
                     "order": 2
                 },
                 "neurosync.autoCapture": {
@@ -217,10 +217,10 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Ramrajnagar/Rverity.git"
+        "url": "https://github.com/Ramrajnagar/neurosync-ai.git"
     },
     "bugs": {
-        "url": "https://github.com/Ramrajnagar/Rverity/issues"
+        "url": "https://github.com/Ramrajnagar/neurosync-ai/issues"
     },
-    "homepage": "https://rverity.ai"
+    "homepage": "https://github.com/Ramrajnagar/neurosync-ai"
 }

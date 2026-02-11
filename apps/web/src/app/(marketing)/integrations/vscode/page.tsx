@@ -33,8 +33,8 @@ export default function VSCodePage() {
                 },
                 {
                     title: "Configure API Key",
-                    description: "Navigate to VS Code settings and enter your NeuroSync API key to enable synchronization with your account.",
-                    code: "Settings → NeuroSync → API Key → Enter your key from dashboard"
+                    description: "Navigate to VS Code settings and enter your NeuroSync API key. For self-hosted instances, set the Endpoint to your local URL.",
+                    code: "Settings → NeuroSync → API Key: Get from http://localhost:3000/settings\nSettings → NeuroSync → Endpoint: http://localhost:3000"
                 },
                 {
                     title: "Start Capturing",

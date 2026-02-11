@@ -30,7 +30,7 @@ export default function GitHubPage() {
                 {
                     title: "Create GitHub App",
                     description: "Navigate to GitHub Developer settings and create a new GitHub App with the required configuration.",
-                    code: "GitHub Settings → Developer settings → GitHub Apps → New GitHub App\n\nRequired fields:\nName: NeuroSync\nWebhook URL: https://api.neurosync.ai/api/github/webhook\nCallback URL: https://api.neurosync.ai/api/github/callback"
+                    code: "GitHub Settings → Developer settings → GitHub Apps → New GitHub App\n\nRequired fields:\nName: NeuroSync\nWebhook URL: https://<your-domain>/api/github/webhook\nCallback URL: https://<your-domain>/api/github/callback\n(For local dev, use ngrok: https://<id>.ngrok.io/api...)"
                 },
                 {
                     title: "Configure Permissions",
