@@ -9,8 +9,10 @@ export default function BrowserPage() {
             title="Chrome Extension"
             description="Capture your browsing context automatically. Build a searchable archive of every article, research session, and important webpage you visit."
             icon={Chrome}
-            installCommand="Install from Chrome Web Store (coming soon) or load unpacked extension"
+            installCommand="Direct One-Click Connection (Coming Soon) or load unpacked extension"
             downloadLink="https://github.com/Ramrajnagar/neurosync-ai/tree/main/extensions/chrome"
+            configureLink="/settings"
+            configureLabel="Get API Key"
             docsLink="/docs"
             features={[
                 "Automatic page visit tracking capturing URL, title, and visit timestamp",

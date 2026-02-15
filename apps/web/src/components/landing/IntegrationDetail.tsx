@@ -19,6 +19,8 @@ interface IntegrationDetailProps {
     features: string[];
     installCommand?: string;
     downloadLink?: string;
+    configureLink?: string;
+    configureLabel?: string;
     docsLink?: string;
     setupSteps?: SetupStep[];
     codeExample?: string;
@@ -31,6 +33,8 @@ export default function IntegrationDetail({
     features,
     installCommand,
     downloadLink,
+    configureLink,
+    configureLabel,
     docsLink,
     setupSteps,
     codeExample,
@@ -46,7 +50,7 @@ export default function IntegrationDetail({
 
     return (
         <div ref={containerRef} className="relative min-h-screen pt-24 bg-black overflow-hidden">
-            {/* Animated background gradient */}
+            {/* ... existing background code ... */}
             <motion.div
                 className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-black to-pink-900/20"
                 style={{ opacity }}
@@ -60,7 +64,7 @@ export default function IntegrationDetail({
                     className="flex flex-col items-center text-center"
                     style={{ scale }}
                 >
-                    {/* Icon with animation */}
+                    {/* ... Icon and Title ... */}
                     <motion.div
                         className="h-24 w-24 rounded-3xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-white/10 flex items-center justify-center mb-8 backdrop-blur-sm shadow-2xl shadow-purple-500/10"
                         initial={{ scale: 0, rotate: -180 }}
@@ -75,14 +79,13 @@ export default function IntegrationDetail({
                         <Icon className="h-12 w-12 text-white" />
                     </motion.div>
 
-                    {/* Title with premium typography */}
                     <motion.h1
                         className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight font-outfit"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
                     >
-                        NeuroSync for <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">{title}</span>
+                        Rverity for <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">{title}</span>
                     </motion.h1>
 
                     <motion.p
@@ -108,9 +111,17 @@ export default function IntegrationDetail({
                             >
                                 <span className="relative z-10 flex items-center gap-2">
                                     <Download className="h-5 w-5" />
-                                    {title === "GitHub Integration" ? "Connect App" : "Get Started"}
+                                    {title === "GitHub Integration" ? "Connect App" : "Download Extension"}
                                 </span>
                                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </Link>
+                        )}
+                        {configureLink && (
+                            <Link
+                                href={configureLink}
+                                className="group relative flex items-center gap-2 px-8 py-4 bg-zinc-800 text-white font-bold rounded-full overflow-hidden transition-all hover:bg-zinc-700"
+                            >
+                                <span>{configureLabel || "Configure"}</span>
                             </Link>
                         )}
                         {docsLink && (

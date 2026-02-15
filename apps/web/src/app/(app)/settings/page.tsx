@@ -38,37 +38,106 @@ export default function SettingsPage() {
                 <div className="space-y-6">
                     <div className="flex items-start gap-6">
                         <div className="w-24 h-24 rounded-full bg-black border border-white/10 flex items-center justify-center relative group cursor-pointer overflow-hidden">
-                            {/* Placeholder for avatar upload */}
-                            <span className="text-2xl font-bold text-gray-600 group-hover:text-gray-400 capitalize">{initial}</span>
-                            <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            {/* Avatar or Placeholder */}
+                            {user?.user_metadata?.avatar_url ? (
+                                <img
+                                    src={user.user_metadata.avatar_url}
+                                    alt="Avatar"
+                                    className="w-full h-full object-cover"
+                                />
+                            ) : (
+                                <span className="text-2xl font-bold text-gray-600 group-hover:text-gray-400 capitalize">
+                                    {initial}
+                                </span>
+                            )}
+
+                            {/* Upload Overlay */}
+                            <label className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
                                 <span className="text-xs text-white">Change</span>
-                            </div>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    className="hidden"
+                                    onChange={async (e) => {
+                                        if (e.target.files?.[0]) {
+                                            const file = e.target.files[0];
+                                            const filePath = `avatars/${user.id}-${Math.random()}.${file.name.split('.').pop()}`;
+                                            const { data, error } = await supabase.storage.from('user-uploads').upload(filePath, file);
+
+                                            if (!error) {
+                                                const { data: { publicUrl } } = supabase.storage.from('user-uploads').getPublicUrl(filePath);
+                                                await supabase.auth.updateUser({ data: { avatar_url: publicUrl } });
+                                                window.location.reload();
+                                            }
+                                        }
+                                    }}
+                                />
+                            </label>
                         </div>
                         <div className="flex-1 space-y-4">
                             <div className="grid grid-cols-2 gap-4">
                                 {user && (
                                     <>
                                         <div>
-                                            <label className="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">First Name</label>
-                                            <input type="text" defaultValue={user?.user_metadata?.full_name?.split(' ')?.[0] || ''} placeholder="Your First Name" className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-cyan-500/50 transition-colors" />
+                                            <label className="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">Full Name</label>
+                                            <input
+                                                id="full_name"
+                                                type="text"
+                                                defaultValue={user?.user_metadata?.full_name || ''}
+                                                placeholder="Your Name"
+                                                className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-cyan-500/50 transition-colors"
+                                            />
                                         </div>
                                         <div>
                                             <label className="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">Display Name</label>
-                                            <input type="text" defaultValue={user?.user_metadata?.full_name || user?.email?.split('@')[0] || ''} placeholder="Your Display Name" className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-cyan-500/50 transition-colors" />
+                                            <input
+                                                id="display_name"
+                                                type="text"
+                                                defaultValue={user?.user_metadata?.display_name || user?.email?.split('@')[0] || ''}
+                                                placeholder="Your Display Name"
+                                                className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-cyan-500/50 transition-colors"
+                                            />
                                         </div>
                                     </>
                                 )}
                             </div>
                             <div>
                                 <label className="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">Bio</label>
-                                <textarea rows={3} defaultValue={user?.user_metadata?.bio || "Rverity Pioneer"} placeholder="Tell us about yourself" className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-cyan-500/50 transition-colors resize-none" />
+                                <textarea
+                                    id="bio"
+                                    rows={3}
+                                    defaultValue={user?.user_metadata?.bio || "Rverity Pioneer"}
+                                    placeholder="Tell us about yourself"
+                                    className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-cyan-500/50 transition-colors resize-none"
+                                />
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div className="mt-8 flex justify-end">
-                    <button className="flex items-center gap-2 px-6 py-2 bg-cyan-500 hover:bg-cyan-400 text-black font-semibold rounded-lg transition-colors">
+                    <button
+                        onClick={async () => {
+                            const fullName = (document.getElementById('full_name') as HTMLInputElement).value;
+                            const displayName = (document.getElementById('display_name') as HTMLInputElement).value;
+                            const bio = (document.getElementById('bio') as HTMLTextAreaElement).value;
+
+                            const { error } = await supabase.auth.updateUser({
+                                data: {
+                                    full_name: fullName,
+                                    display_name: displayName,
+                                    bio: bio
+                                }
+                            });
+
+                            if (!error) {
+                                alert('Profile updated successfully!');
+                            } else {
+                                alert('Failed to update profile.');
+                            }
+                        }}
+                        className="flex items-center gap-2 px-6 py-2 bg-cyan-500 hover:bg-cyan-400 text-black font-semibold rounded-lg transition-colors"
+                    >
                         <Save className="w-4 h-4" />
                         Save Changes
                     </button>

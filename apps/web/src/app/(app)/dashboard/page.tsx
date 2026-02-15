@@ -8,6 +8,7 @@ import { Clock, TrendingUp, Zap, Filter, Search, Calendar, Tag, ExternalLink } f
 import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid';
 import { StatsWidget } from '@/components/dashboard/StatsWidget';
 import { QuickCapture } from '@/components/dashboard/QuickCapture';
+import { ConnectExtension } from '@/components/dashboard/ConnectExtension';
 import { GraphWidget } from '@/components/dashboard/GraphWidget';
 import { EmptyState } from '@/components/ui/EmptyState';
 
@@ -149,6 +150,17 @@ export default function DashboardPage() {
                     </div>
                 </div>
             </motion.header>
+
+            {/* Integration Quick Connect */}
+            {!connected && (
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                >
+                    <ConnectExtension />
+                </motion.div>
+            )}
 
             {/* Stats and Quick Capture Grid */}
             <BentoGrid className="max-w-full">

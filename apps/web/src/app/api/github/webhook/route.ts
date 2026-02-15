@@ -142,7 +142,7 @@ export async function POST(request: Request) {
 // Respond to ping events
 export async function GET(request: Request) {
     return NextResponse.json({
-        message: 'NeuroSync GitHub Webhook',
+        message: 'Rverity GitHub Webhook',
         status: 'active'
     });
 }

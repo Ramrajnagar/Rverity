@@ -35,7 +35,7 @@ export default function DocsPage() {
                     <DocCard
                         icon={Zap}
                         title="Quick Start"
-                        description="Get up and running with NeuroSync in under 5 minutes"
+                        description="Get up and running with Rverity in under 5 minutes"
                         href="/docs"
                         delay={0.1}
                     />
@@ -111,7 +111,7 @@ export default function DocsPage() {
                         <Step
                             number={1}
                             title="Create an Account"
-                            description="Sign up for a NeuroSync account to get your API key and access the dashboard."
+                            description="Sign up for a Rverity account to get your API key and access the dashboard."
                         />
                         <Step
                             number={2}

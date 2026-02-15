@@ -24,7 +24,7 @@ export default function ApiDocsPage() {
                         API <span className="text-cyan-400">REFERENCE</span>
                     </h1>
                     <p className="text-xl text-zinc-400 mb-8">
-                        Direct programmatic access to the NeuroSync Cortex.
+                        Direct programmatic access to the Rverity Cortex.
                     </p>
 
                     {/* Stats Grid */}

@@ -33,7 +33,11 @@ const MOCK_DATA = {
 export interface KnowledgeGraphProps {
     memories?: Array<{
         id: string;
-        payload: {
+        content?: string;
+        source?: string;
+        tags?: string[];
+        created_at?: string;
+        payload?: {
             content: string;
             source: string;
             tags: string[];
@@ -56,40 +60,43 @@ export default function KnowledgeGraph({ memories = [] }: KnowledgeGraphProps) {
         // Create central hub
         nodes.push({ id: 'Rverity', group: 1, val: 20 });
 
-        memories.forEach(mem => {
+        memories.forEach((mem: any) => {
+            // Handle both flat structure (Supabase) and payload structure (Redis/Legacy)
+            const content = mem.content || mem.payload?.content || 'Unknown Memory';
+            const source = mem.source || mem.payload?.source || 'unknown';
+            const tags = mem.tags || mem.payload?.tags || [];
+            const id = mem.id;
+
             // Add source node if not exists (e.g., 'vscode', 'cursor')
-            if (!sources.has(mem.payload.source)) {
-                sources.add(mem.payload.source);
+            if (!sources.has(source)) {
+                sources.add(source);
                 nodes.push({
-                    id: mem.payload.source,
+                    id: source,
                     group: 2,
                     val: 10
                 });
                 // Link source to Rverity hub
-                links.push({ source: 'Rverity', target: mem.payload.source });
+                links.push({ source: 'Rverity', target: source });
             }
 
             // Add memory node
             nodes.push({
-                id: mem.id,
-                name: mem.payload.content,
+                id: id,
+                name: content,
                 group: 3,
                 val: 5
             });
 
             // Link memory to its source
-            links.push({ source: mem.payload.source, target: mem.id });
+            links.push({ source: source, target: id });
 
             // Link tags
-            mem.payload.tags.forEach(tag => {
+            tags.forEach((tag: string) => {
                 const tagId = `tag-${tag}`;
-                // Check if tag node exists, if not add it (simple check by iteration or just push unique)
-                // For simplicity/perf with small graphs, we can just push and dedupe or use a Map.
-                // Using find here for readability on small datasets
                 if (!nodes.find(n => n.id === tagId)) {
                     nodes.push({ id: tagId, name: `#${tag}`, group: 4, val: 3 });
                 }
-                links.push({ source: mem.id, target: tagId });
+                links.push({ source: id, target: tagId });
             });
         });
 

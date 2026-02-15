@@ -84,7 +84,7 @@ export default function RverityLogo({ className, textClassName, hideText = false
             {!hideText && (
                 <div className={cn("flex flex-col", textClassName)}>
                     <span className="text-xl font-bold tracking-tight text-white font-display">
-                        NeuroSync
+                        Rverity
                     </span>
                     <span className="text-[10px] uppercase tracking-[0.2em] text-primary/80 font-medium">
                         Digital Memory

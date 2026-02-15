@@ -33,7 +33,7 @@ export default function Footer() {
                     <ul className="space-y-2 text-sm">
                         <li><Link href="/docs" className="hover:text-green-400">Documentation</Link></li>
                         <li><Link href="/features/graph" className="hover:text-green-400">Knowledge Graph</Link></li>
-                        <li><Link href="/signup" className="hover:text-green-400">Community</Link></li>
+                        <li><Link href="/manifesto" className="hover:text-green-400">Community</Link></li>
                     </ul>
                 </div>
 
@@ -41,12 +41,12 @@ export default function Footer() {
                     <h4 className="mb-4 font-semibold text-white">Legal</h4>
                     <ul className="space-y-2 text-sm">
                         <li><Link href="/security" className="hover:text-green-400">Security & Privacy</Link></li>
-                        <li><Link href="/" className="hover:text-green-400">Terms of Service</Link></li>
+                        <li><Link href="/terms" className="hover:text-green-400">Terms of Service</Link></li>
                     </ul>
                 </div>
             </div>
             <div className="mt-12 text-center text-xs opacity-50">
-                © {new Date().getFullYear()} NeuroSync Inc. All rights reserved.
+                © {new Date().getFullYear()} Rverity Inc. All rights reserved.
             </div>
         </footer>
     );

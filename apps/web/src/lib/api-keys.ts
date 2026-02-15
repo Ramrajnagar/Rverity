@@ -8,7 +8,7 @@ export class ApiKeyService {
      */
     static async createKey(userId: string, name: string) {
         // 1. Generate a secure random key
-        const rawKey = 'sk_neuro_' + crypto.randomBytes(24).toString('hex');
+        const rawKey = 'sk_rverity_' + crypto.randomBytes(24).toString('hex');
 
         // 2. Hash it
         const hash = crypto.createHash('sha256').update(rawKey).digest('hex');
@@ -60,7 +60,7 @@ export class ApiKeyService {
     }
 
     static async verifyKey(rawKey: string): Promise<string | null> {
-        if (!rawKey.startsWith('sk_neuro_')) return null;
+        if (!rawKey.startsWith('sk_rverity_') && !rawKey.startsWith('sk_neuro_')) return null;
 
         const hash = crypto.createHash('sha256').update(rawKey).digest('hex');
 

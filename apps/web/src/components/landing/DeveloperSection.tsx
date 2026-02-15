@@ -41,14 +41,14 @@ export default function DeveloperSection() {
                     <div className="space-y-2 text-zinc-300">
                         <div className="flex">
                             <span className="text-purple-400 mr-2">$</span>
-                            <span>npm install @neurosync/sdk</span>
+                            <span>npm install @rverity/sdk</span>
                         </div>
                         <div className="h-4" />
                         <div>
                             <span className="text-pink-400">import</span>
-                            <span className="text-white"> {"{ NeuroSyncClient }"} </span>
+                            <span className="text-white"> {"{ RverityClient }"} </span>
                             <span className="text-pink-400">from</span>
-                            <span className="text-emerald-300"> '@neurosync/sdk'</span>;
+                            <span className="text-emerald-300"> '@rverity/sdk'</span>;
                         </div>
                         <div className="h-2" />
                         <div>
@@ -56,7 +56,7 @@ export default function DeveloperSection() {
                             <span className="text-white"> client </span>
                             <span className="text-pink-400">=</span>
                             <span className="text-blue-400"> new</span>
-                            <span className="text-yellow-300"> NeuroSyncClient</span>({"{"});
+                            <span className="text-yellow-300"> RverityClient</span>({"{"});
                         </div>
                         <div className="pl-4">
                             <span className="text-emerald-300">apiKey</span>: <span className="text-orange-300">'your-api-key'</span>,

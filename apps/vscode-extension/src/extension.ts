@@ -49,6 +49,38 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(onSave);
 
+    // URI Handler
+    context.subscriptions.push(
+        vscode.window.registerUriHandler({
+            handleUri(uri: vscode.Uri): vscode.ProviderResult<void> {
+                if (uri.path === '/auth') {
+                    const query = new URLSearchParams(uri.query);
+                    const token = query.get('token');
+                    if (token) {
+                        context.secrets.store('neurosync.apiKey', token).then(() => {
+                            vscode.window.showInformationMessage('NeuroSync: Successfully authenticated!');
+                            // Re-initialize client with new token
+                            const config = vscode.workspace.getConfiguration('neurosync');
+                            const endpoint = config.get<string>('apiUrl') || 'http://localhost:3001';
+                            client = new NeuroSyncClient({ apiKey: token, endpoint });
+                            statusBar.text = "$(brain) NeuroSync";
+                        });
+                    }
+                }
+            }
+        })
+    );
+
+    // Check for stored token on startup
+    context.secrets.get('neurosync.apiKey').then((storedToken) => {
+        if (storedToken) {
+            const config = vscode.workspace.getConfiguration('neurosync');
+            const endpoint = config.get<string>('apiUrl') || 'http://localhost:3001';
+            client = new NeuroSyncClient({ apiKey: storedToken, endpoint });
+            statusBar.text = "$(brain) NeuroSync";
+        }
+    });
+
     // Command: Manual Sync
     let manualSync = vscode.commands.registerCommand('neurosync.manualSync', async () => {
         vscode.window.showInformationMessage('NeuroSync: Manual sync triggered');
