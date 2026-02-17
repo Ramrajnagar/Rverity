@@ -1,69 +1,94 @@
-# Rverity
+<div align="center">
+  <a href="https://rverity.ai">
+    <img src="apps/web/public/rverity-brand.svg" alt="Rverity Logo" width="120" height="120">
+  </a>
 
-**The Operating System for your Digital Soul.**
+  <h1>RVERITY</h1>
 
-> *"We are drowning in information but starved for knowledge."* — John Naisbitt
-
----
-
-### The Problem
-You live in a fragmented world. Your code is on GitHub, your research is in Chrome, your thoughts are in Obsidian or Notion. 
-AI models are generic geniuses—they know everything about the world, but **nothing about you**.
-
-### The Solution: Rverity
-Rverity is a self-hosted **Knowledge Graph** that unifies your digital existence. It doesn't just "search" your history. 
-It **observes**, **vectors**, and **links** your interactions across VS Code, Chrome, and your local environment into a single, navigable 3D graph.
-
-It is the context layer for the post-AGI world.
+  <p align="center">
+    <strong>The Operating System for your Digital Soul.</strong>
+  </p>
+</div>
 
 ---
 
-## ⚡ Quick Start
+### The Fragmentation Crisis
 
-Rverity is designed for sovereignty. You run it. You own it.
+We live in a state of cognitive fracture.
 
-```bash
-# Clone the protocol
-git clone https://github.com/Ramrajnagar/Rverity.git
-cd neurosync-ai
+Your code lives in GitHub. Your research lives in Chrome. Your communication lives in Slack. Your thoughts live in Notion.
+These systems do not talk to each other. They are isolated silos of intelligence.
 
-# Ignite the engine
-npm install
-npm run dev
-```
+As we approach the AGI horizon, this fragmentation becomes a liability. AI models are generic geniuses—they know everything about the world, but **nothing about you**. They lack the context of your specific history, your unique patterns, and your implicit knowledge.
 
-Visit `http://localhost:3000`. Welcome to your second brain.
+### The Solution: Consilience
 
----
+Rverity is a self-hosted **Knowledge Graph** that unifies your digital existence.
+It is an infrastructure layer that sits below your applications, observing the data stream of your life. It vectors, links, and indexes every interaction into a single, navigable 3D graph.
 
-## 🛠️ Architecture
-
-We built this stack for speed, privacy, and aesthetic perfection.
-
-- **Core**: Next.js 16 (App Router), Node.js Edge Runtime.
-- **Visuals**: React Three Fiber (WebGL), Framer Motion.
-- **Memory**: Supabase (pgvector), Upstash Redis.
-- **Intelligence**: OpenAI / Anthropic Embeddings.
+It does not just "search" your history. It reconstructs your train of thought.
 
 ---
 
-## 🤝 Contributing
+## Technical Architecture
 
-We are building the memory layer for the future of AI. This is not a weekend project. This is a movement.
-If you are an engineer who cares about craftsmanship, privacy, and building the future, join us.
+We adhere to a philosophy of **sovereign computing**. You run the stack. You own the weights. You control the graph.
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for the rules of engagement.
+### Core Infrastructure
+- **Runtime**: Next.js 16 (App Router) on Node.js Edge.
+- **State Management**: Server-side highly consistent state via TanStack Query.
+- **Visual Engine**: React Three Fiber (WebGL) for high-performance 3D graph rendering.
+- **Vector Database**: Supabase (PostgreSQL + pgvector) for high-dimensional semantic search.
+- **Caching**: Upstash Redis for sub-millisecond context retrieval.
+
+### The Pipeline
+1.  **Ingestion**: Passive observers in VS Code and Chrome capture text, code, and navigational intent.
+2.  **Synthesis**: Data is chunked and embedded using OpenAI/Anthropic high-fidelity models.
+3.  **Graphing**: Semantic relationships are established between disparate data points (e.g., linking a StackOverflow article to a specific Git commit).
+4.  **Recall**: The Context Engine anticipates your needs, surfacing relevant memories before you explicitly query for them.
 
 ---
 
-## 🗺️ Roadmap
+## Quick Start
 
-- [ ] **Neural Visualizations**: Immersive WebGL graph navigation.
-- [ ] **Predictive Context**: Agents that code *with* you, not just for you.
-- [ ] **Local Vaults**: Fully offline, local-only vector storage.
+We assume you are comfortable with a terminal.
+
+1.  **Clone the Protocol**
+    ```bash
+    git clone https://github.com/Ramrajnagar/Rverity.git
+    cd neurosync-ai
+    ```
+
+2.  **Ignite the Engine**
+    ```bash
+    npm install
+    npm run dev
+    ```
+
+3.  **Access the Interface**
+    Open `http://localhost:3000`. The graph will begin assembling immediately.
+
+---
+
+## The Manifesto
+
+We maximize for three variables:
+
+1.  **Speed**: Latency is the enemy of thought. Every interaction must be instant.
+2.  **Privacy**: Your thoughts are your own. We build for a local-first future where data never leaves your perimeter without explicit consent.
+3.  **Aesthetics**: Tools for the mind should be beautiful. We reject the utilitarian drabness of enterprise software.
+
+## Roadmap
+
+Refining the interface between human intent and machine execution.
+
+-   [ ] **Neural Visualizations**: Immersive WebGL graph navigation.
+-   [ ] **Predictive Context**: Agents that code *with* you, not just for you.
+-   [ ] **Local Vaults**: Fully offline, local-only vector storage.
+-   [ ] **Brain-Computer Interface**: Experimental typeless input streams.
 
 ---
 
 <div align="center">
-    <p>Built with conviction by <a href="https://github.com/Ramrajnagar">Ramraj</a> and the Core Team.</p>
+    <p>Built with conviction by <a href="https://github.com/Ramrajnagar">Ramraj</a> and the Rverity Team.</p>
 </div>
