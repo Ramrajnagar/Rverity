@@ -2,27 +2,27 @@
 
 Your AI-powered browsing memory for Chrome. Automatically capture and recall your web context.
 
-## 🚀 Features
+## Features
 
-### ✨ Automatic Capture
+### Automatic Capture
 - **Page Visits**: Tracks pages you visit with titles and URLs
 - **Bookmarks**: Captures when you bookmark pages
 - **Text Selection**: Capture selected text with `Ctrl+Shift+S`
 - **Privacy First**: Respects incognito mode, blacklist/whitelist
 
-### 🔍 Intelligent Search
+### Intelligent Search
 - **Quick Search**: `Ctrl+Shift+K` to open popup
 - **Full-text search** across all captured memories
 - **Recent memories** view
-- **Beautiful UI** with gradient design
+- **UI** with gradient design
 
-### 🎯 Smart Features
+### Smart Features
 - **Offline Queue**: Works offline, syncs when back online
 - **Blacklist/Whitelist**: Control what gets captured
 - **Incognito Respect**: Never captures in incognito mode (configurable)
 - **Keyboard Shortcuts**: Fast access to all features
 
-## 📦 Installation
+## Installation
 
 ### From Chrome Web Store (Coming Soon)
 1. Visit Chrome Web Store
@@ -45,17 +45,17 @@ Your AI-powered browsing memory for Chrome. Automatically capture and recall you
 7. Click "Load unpacked"
 8. Select the `extensions/chrome` directory
 
-## ⚙️ Setup
+## Setup
 
 1. Get your API key from [rverity.ai](https://rverity.ai)
 2. Click the NeuroSync icon in Chrome toolbar
-3. Click "⚙️ Settings"
+3. Click "Settings"
 4. Enter your API key
 5. Configure capture preferences
 6. Save settings
-7. Start browsing! 🎉
+7. Start browsing!
 
-## 🎯 Usage
+## Usage
 
 ### Capture Page Visits
 - Just browse normally
@@ -74,13 +74,13 @@ Your AI-powered browsing memory for Chrome. Automatically capture and recall you
 
 ### Manage Settings
 1. Click the NeuroSync icon
-2. Click "⚙️ Settings"
+2. Click "Settings"
 3. Configure:
    - API credentials
    - Capture preferences
    - Privacy filters (blacklist/whitelist)
 
-## ⚙️ Configuration
+## Configuration
 
 ### API Settings
 - **API Key**: Your NeuroSync API key (required)
@@ -113,7 +113,7 @@ Your AI-powered browsing memory for Chrome. Automatically capture and recall you
 *://docs.*.com/*
 ```
 
-## 🎨 Keyboard Shortcuts
+## Keyboard Shortcuts
 
 | Shortcut | Action |
 |----------|--------|
@@ -123,7 +123,7 @@ Your AI-powered browsing memory for Chrome. Automatically capture and recall you
 
 *On Mac, use `Cmd` instead of `Ctrl`*
 
-## 🔒 Privacy & Security
+## Privacy & Security
 
 - **Incognito Mode**: Respects incognito by default
 - **Blacklist**: Block sensitive sites
@@ -131,14 +131,14 @@ Your AI-powered browsing memory for Chrome. Automatically capture and recall you
 - **Local Queue**: Offline data stored locally
 - **Your Data**: You control what gets captured
 
-## 🌐 Offline Support
+## Offline Support
 
 NeuroSync works offline!
 - Changes are queued locally
 - Automatically synced when back online
 - No data loss
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Extension not working?
 1. Check API key in settings
@@ -155,7 +155,7 @@ NeuroSync works offline!
 2. Verify endpoint URL
 3. Check internet connection
 
-## 🔧 Development
+## Development
 
 ### Build
 ```bash
@@ -173,7 +173,7 @@ npm run clean
 npm run build
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 extensions/chrome/
@@ -198,21 +198,21 @@ extensions/chrome/
 └── package.json                 # Dependencies
 ```
 
-## 🤝 Support
+## Support
 
-- 📧 Email: support@neurosync.ai
-- 💬 Discord: [Join our community](https://discord.gg/rverity)
-- 🐛 Issues: [GitHub Issues](https://github.com/Ramrajnagar/neurosync-ai/issues)
-- 📖 Docs: [neurosync.ai/docs](http://localhost:3000/docs)
+- Email: support@neurosync.ai
+- Discord: [Join our community](https://discord.gg/rverity)
+- Issues: [GitHub Issues](https://github.com/Ramrajnagar/neurosync-ai/issues)
+- Docs: [neurosync.ai/docs](http://localhost:3000/docs)
 
-## 📝 License
+## License
 
 MIT License - see [LICENSE](../../LICENSE) for details
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
-Built with ❤️ by the Rverity Team
+Built by the Rverity Team
 
 ---
 
-**Happy Browsing with NeuroSync!** 🧠✨
+**Happy Browsing with NeuroSync!**

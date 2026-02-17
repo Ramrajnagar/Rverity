@@ -2,54 +2,54 @@
 
 Your AI-powered second brain for Visual Studio Code. Automatically capture your coding context and recall it when you need it.
 
-## 🚀 Features
+## Features
 
-### ✨ Automatic Context Capture
+### Automatic Context Capture
 - **File Changes**: Tracks edits, saves, creates, and deletes
 - **Git Commits**: Captures commit messages automatically
 - **Smart Debouncing**: Configurable delay to avoid spam (default: 3s)
 - **Exclusion Patterns**: Skip node_modules, dist, and other folders
 
-### 🔍 Intelligent Search
+### Intelligent Search
 - **Quick Search**: `Ctrl+Shift+K` (Cmd+Shift+K on Mac)
 - **Full-text search** across all your captured memories
 - **Filter by source**, tags, and date
 - **Related memories** discovery
 
-### 📝 Quick Notes
+### Quick Notes
 - **Capture Notes**: `Ctrl+Shift+N` (Cmd+Shift+N on Mac)
 - Manually capture important thoughts
 - Tagged automatically for easy retrieval
 
-### 📊 Activity Dashboard
+### Activity Dashboard
 - **Recent Memories** sidebar view
 - **Statistics** panel with insights
 - **Timeline view** of all activities
 - **Real-time sync** with WebSocket
 
-### 🔐 Privacy First
+### Privacy First
 - **Configurable exclusions** - skip sensitive files
 - **Opt-in terminal capture** - disabled by default
 - **Local queue** when offline
 - **Your data, your control**
 
-## 📦 Installation
+## Installation
 
-1. Install from VS Code Marketplace (coming soon)
+1. Install from VS Code Marketplace
 2. Or install from VSIX:
    ```bash
    code --install-extension neurosync-ai-1.0.0.vsix
    ```
 
-## ⚙️ Setup
+## Setup
 
 1. Get your API key from [rverity.ai](https://rverity.ai)
 2. Open VS Code Settings (`Ctrl+,`)
 3. Search for "NeuroSync"
 4. Enter your API key
-5. Start coding! 🎉
+5. Start coding!
 
-## 🎯 Usage
+## Usage
 
 ### Search Your Memories
 1. Press `Ctrl+Shift+K` (or `Cmd+Shift+K` on Mac)
@@ -72,7 +72,7 @@ Your AI-powered second brain for Visual Studio Code. Automatically capture your 
 - Check your statistics
 - Refresh anytime
 
-## ⚙️ Configuration
+## Configuration
 
 ### Required Settings
 - **API Key**: Your NeuroSync API key (get one at rverity.ai)
@@ -108,7 +108,7 @@ Your AI-powered second brain for Visual Studio Code. Automatically capture your 
 }
 ```
 
-## 🎨 Commands
+## Commands
 
 | Command | Keybinding | Description |
 |---------|-----------|-------------|
@@ -119,28 +119,28 @@ Your AI-powered second brain for Visual Studio Code. Automatically capture your 
 | `NeuroSync: Refresh` | - | Refresh sidebar |
 | `NeuroSync: Open Settings` | - | Open settings |
 
-## 🔧 How It Works
+## How It Works
 
 1. **Capture**: Automatically tracks your coding activity
 2. **Sync**: Sends context to NeuroSync AI
 3. **Process**: AI analyzes and indexes your memories
 4. **Recall**: Search and retrieve when you need it
 
-## 🌐 Offline Support
+## Offline Support
 
 NeuroSync works offline! When you're disconnected:
 - Changes are queued locally
 - Automatically synced when back online
 - No data loss
 
-## 🔒 Privacy & Security
+## Privacy & Security
 
 - **End-to-end encryption** (coming soon)
 - **Configurable exclusions** for sensitive files
 - **Opt-in terminal capture**
 - **Your data stays yours**
 
-## 📊 What Gets Captured?
+## What Gets Captured?
 
 ### Automatically (if enabled):
 - File edits, saves, creates, deletes
@@ -156,7 +156,7 @@ NeuroSync works offline! When you're disconnected:
 - Terminal commands (unless opted in)
 - Passwords or secrets
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Extension not working?
 1. Check your API key in settings
@@ -173,21 +173,21 @@ NeuroSync works offline! When you're disconnected:
 2. Verify API key is correct
 3. Check firewall settings
 
-## 🤝 Support
+## Support
 
-- 📧 Email: support@neurosync.ai
-- 💬 Discord: [Join our community](https://discord.gg/rverity)
-- 🐛 Issues: [GitHub Issues](https://github.com/Ramrajnagar/neurosync-ai/issues)
-- 📖 Docs: [neurosync.ai/docs](http://localhost:3000/docs)
+- Email: support@neurosync.ai
+- Discord: [Join our community](https://discord.gg/rverity)
+- Issues: [GitHub Issues](https://github.com/Ramrajnagar/neurosync-ai/issues)
+- Docs: [neurosync.ai/docs](http://localhost:3000/docs)
 
-## 📝 License
+## License
 
 MIT License - see [LICENSE](LICENSE) for details
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
-Built with ❤️ by the Rverity Team
+Built by the Rverity Team
 
 ---
 
-**Happy Coding with NeuroSync!** 🧠✨
+**Happy Coding with NeuroSync!**

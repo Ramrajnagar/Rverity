@@ -2,24 +2,24 @@
 
 The official TypeScript/JavaScript SDK for NeuroSync AI - your AI-powered second brain.
 
-## 🚀 Features
+## Features
 
-- ✅ **Full TypeScript Support** - Complete type definitions
-- ✅ **Real-time Sync** - WebSocket support for live updates
-- ✅ **Offline Queue** - Automatic queuing when offline
-- ✅ **Batch Operations** - Efficient bulk data handling
-- ✅ **Auto Retry** - Exponential backoff for failed requests
-- ✅ **Event System** - React to real-time events
-- ✅ **Advanced Search** - Powerful filtering and search
-- ✅ **Analytics** - Built-in insights and stats
+- **Full TypeScript Support** - Complete type definitions
+- **Real-time Sync** - WebSocket support for live updates
+- **Offline Queue** - Automatic queuing when offline
+- **Batch Operations** - Efficient bulk data handling
+- **Auto Retry** - Exponential backoff for failed requests
+- **Event System** - React to real-time events
+- **Advanced Search** - Powerful filtering and search
+- **Analytics** - Built-in insights and stats
 
-## 📦 Installation
+## Installation
 
 ```bash
 npm install @neurosync/sdk
 ```
 
-## 🎯 Quick Start
+## Quick Start
 
 ```typescript
 import { NeuroSyncClient } from '@neurosync/sdk';
@@ -44,7 +44,7 @@ const results = await client.searchMemory('authentication');
 console.log(results.data?.memories);
 ```
 
-## 📚 Configuration
+## Configuration
 
 ### NeuroSyncConfig
 
@@ -58,7 +58,7 @@ interface NeuroSyncConfig {
 }
 ```
 
-## 🔧 Core Methods
+## Core Methods
 
 ### Memory Operations
 
@@ -219,7 +219,7 @@ await client.getActivityStats(): Promise<ApiResponse<Stats>>
 }
 ```
 
-## 🌐 Real-time Sync
+## Real-time Sync
 
 ### connectRealtime()
 Connect to WebSocket for real-time updates.
@@ -262,7 +262,7 @@ Check connection status.
 const isConnected = client.isRealtimeConnected();
 ```
 
-## 💾 Offline Queue
+## Offline Queue
 
 When `enableOfflineQueue` is enabled, the SDK automatically queues items when offline.
 
@@ -287,7 +287,7 @@ Clear the offline queue.
 client.clearQueue();
 ```
 
-## 🔐 Authentication
+## Authentication
 
 ### validateApiKey()
 Validate your API key.
@@ -296,7 +296,7 @@ Validate your API key.
 const isValid = await client.validateApiKey();
 ```
 
-## 🧹 Cleanup
+## Cleanup
 
 ### destroy()
 Clean up resources when done.
@@ -305,7 +305,7 @@ Clean up resources when done.
 client.destroy();
 ```
 
-## 📖 Examples
+## Examples
 
 See the `examples/` directory for complete examples:
 
@@ -313,7 +313,7 @@ See the `examples/` directory for complete examples:
 - **realtime-sync.ts** - Real-time WebSocket sync
 - **batch-operations.ts** - Batch operations and offline queue
 
-## 🔗 Integration Examples
+## Integration Examples
 
 ### VS Code Extension
 
@@ -376,7 +376,7 @@ const data = await fetchExternalData();
 await client.batchSendContext(data);
 ```
 
-## 🐛 Error Handling
+## Error Handling
 
 All methods return an `ApiResponse` object:
 
@@ -392,7 +392,7 @@ if (response.status === 'success') {
 }
 ```
 
-## 📝 TypeScript Types
+## TypeScript Types
 
 ```typescript
 import type {
@@ -406,25 +406,21 @@ import type {
 } from '@neurosync/sdk';
 ```
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please see our [Contributing Guide](../../CONTRIBUTING.md).
 
-## 📄 License
+## License
 
 MIT License - see [LICENSE](../../LICENSE) for details.
 
-## 🔗 Links
+## Links
 
 - [Documentation](http://localhost:3000/docs)
 - [API Reference](http://localhost:3000/docs/api)
 - [GitHub](https://github.com/Ramrajnagar/neurosync-ai)
 
-## 💬 Support
+## Support
 
-- 📧 Email: support@neurosync.ai
-- 🐛 Issues: [GitHub Issues](https://github.com/Ramrajnagar/neurosync-ai/issues)
-
----
-
-Built with ❤️ by the NeuroSync Team
+- Email: support@neurosync.ai
+- Issues: [GitHub Issues](https://github.com/Ramrajnagar/neurosync-ai/issues)

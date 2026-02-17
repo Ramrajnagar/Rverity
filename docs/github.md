@@ -2,9 +2,9 @@
 
 Automatically capture your GitHub activity and build a comprehensive memory of your development work.
 
-## 🚀 Features
+## Features
 
-### ✨ Automatic Capture
+### Automatic Capture
 - **Commits & Pushes**: Track all commits with messages, files changed, and authors
 - **Pull Requests**: Capture PR creation, updates, reviews, and merges
 - **Issues**: Track issue creation, updates, comments, and closures
@@ -12,13 +12,13 @@ Automatically capture your GitHub activity and build a comprehensive memory of y
 - **Branches**: Monitor branch creation and deletion
 - **Reviews**: Capture code review comments and approvals
 
-### 🔒 Privacy First
+### Privacy First
 - **Metadata Only**: Only captures commit messages, PR titles, issue descriptions (no code content)
 - **User Controlled**: You choose which repositories to monitor
 - **Easy Disconnect**: Remove the integration anytime
 - **Secure**: Uses GitHub's official OAuth and webhook system
 
-### 📊 Benefits
+### Benefits
 - **Never Forget**: Remember what you worked on across all repositories
 - **Context Preservation**: Full history of your development activity
 - **Search Everything**: Find that PR or issue you worked on months ago
@@ -26,7 +26,7 @@ Automatically capture your GitHub activity and build a comprehensive memory of y
 
 ---
 
-## 📦 Installation
+## Installation
 
 ### Step 1: Create GitHub App
 
@@ -112,7 +112,7 @@ You'll be redirected to the callback URL and the integration will be active!
 
 ---
 
-## 🎯 Usage
+## Usage
 
 ### Dashboard Integration
 
@@ -145,7 +145,7 @@ DELETE /api/github/installations?installation_id=12345
 
 ---
 
-## 📊 What Gets Captured
+## What Gets Captured
 
 ### Push Events
 ```json
@@ -198,7 +198,7 @@ DELETE /api/github/installations?installation_id=12345
 
 ---
 
-## 🔧 API Endpoints
+## API Endpoints
 
 ### Webhook Handler
 **Endpoint**: `POST /api/github/webhook`
@@ -247,7 +247,7 @@ Remove a GitHub installation.
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Webhook Not Receiving Events
 
@@ -270,7 +270,7 @@ Remove a GitHub installation.
 
 ---
 
-## 🔒 Security
+## Security
 
 ### Webhook Verification
 All webhooks are verified using HMAC SHA-256 signature:
@@ -294,33 +294,29 @@ if (!verifier.verify(payload, signature)) {
 
 ---
 
-## 📈 Analytics
+## Analytics
 
 View your GitHub activity in the dashboard:
 - Commits per day/week/month
 - Most active repositories
 - PR review patterns
-- **Homepage URL**: `http://localhost:3000` (or your deployed URL)
-- **Callback URL**: `http://localhost:3000/api/github/callback`
-- **Webhook URL**: `http://localhost:3000/api/github/webhook` (use ngrok for local dev)
 - Issue resolution time
 - Collaboration insights
 
 ---
 
-## 🤝 Support
+## Support
 
-- 📧 Email: support@neurosync.ai
-- 💬 Discord: [Join our community](https://discord.gg/rverity)
-- 🐛 Issues: [GitHub Issues](https://github.com/Ramrajnagar/neurosync-ai/issues)
-- 📖 Docs: [neurosync.ai/docs/github](http://localhost:3000/docs/github)
+- Email: support@rverity.ai
+- Issues: [GitHub Issues](https://github.com/Ramrajnagar/neurosync-ai/issues)
+- Docs: [Documentation](http://localhost:3000/docs/github)
 
 ---
 
-## 📝 License
+## License
 
 MIT License - see [LICENSE](../../LICENSE) for details
 
 ---
 
-**Happy Coding with NeuroSync!** 🚀✨
+**Happy Coding with NeuroSync!**
