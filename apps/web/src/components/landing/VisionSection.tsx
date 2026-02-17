@@ -137,7 +137,7 @@ interface TimelineItem {
     phase: string;
     title: string;
     description: ReactNode;
-    icon: React.ElementType;
+    icon: React.ElementType<{ className?: string }>;
     color: string;
     bg: string;
     border: string;
@@ -145,6 +145,7 @@ interface TimelineItem {
 
 const TimelineItem = ({ item, index }: { item: TimelineItem; index: number }) => {
     const isEven = index % 2 === 0;
+    const Icon = item.icon;
 
     return (
         <motion.div
@@ -172,7 +173,7 @@ const TimelineItem = ({ item, index }: { item: TimelineItem; index: number }) =>
                                 {item.phase}
                             </span>
                             <div className={`p-3 rounded-xl bg-white/5 ${item.color}`}>
-                                <item.icon className="h-6 w-6" />
+                                <Icon className="h-6 w-6" />
                             </div>
                         </div>
 
