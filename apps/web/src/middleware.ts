@@ -1,13 +1,11 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
+
+const PROTECTED_ROUTES = ['/dashboard', '/graph', '/settings', '/onboarding'];
+const AUTH_ROUTES = ['/login', '/signup'];
 
 export async function middleware(req: NextRequest) {
-    let response = NextResponse.next({
-        request: {
-            headers: req.headers,
-        },
-    });
+    let response = NextResponse.next({ request: { headers: req.headers } });
 
     const supabase = createServerClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -18,73 +16,37 @@ export async function middleware(req: NextRequest) {
                     return req.cookies.get(name)?.value;
                 },
                 set(name: string, value: string, options: CookieOptions) {
-                    req.cookies.set({
-                        name,
-                        value,
-                        ...options,
-                    });
-                    response = NextResponse.next({
-                        request: {
-                            headers: req.headers,
-                        },
-                    });
-                    response.cookies.set({
-                        name,
-                        value,
-                        ...options,
-                    });
+                    req.cookies.set({ name, value, ...options });
+                    response = NextResponse.next({ request: { headers: req.headers } });
+                    response.cookies.set({ name, value, ...options });
                 },
                 remove(name: string, options: CookieOptions) {
-                    req.cookies.set({
-                        name,
-                        value: '',
-                        ...options,
-                    });
-                    response = NextResponse.next({
-                        request: {
-                            headers: req.headers,
-                        },
-                    });
-                    response.cookies.set({
-                        name,
-                        value: '',
-                        ...options,
-                    });
+                    req.cookies.set({ name, value: '', ...options });
+                    response = NextResponse.next({ request: { headers: req.headers } });
+                    response.cookies.set({ name, value: '', ...options });
                 },
             },
         }
     );
 
-    const {
-        data: { session },
-    } = await supabase.auth.getSession();
+    const { data: { session } } = await supabase.auth.getSession();
+    const path = req.nextUrl.pathname;
 
-    // Protected routes
-    const protectedPaths = ['/dashboard', '/graph', '/settings', '/onboarding'];
-    const isProtectedPath = protectedPaths.some(path => req.nextUrl.pathname.startsWith(path));
+    const isProtected = PROTECTED_ROUTES.some(route => path.startsWith(route));
+    const isAuth = AUTH_ROUTES.some(route => path.startsWith(route));
 
-    // Auth routes
-    const authPaths = ['/login', '/signup'];
-    const isAuthPath = authPaths.some(path => req.nextUrl.pathname.startsWith(path));
-
-    // If trying to access protected route without session
-    if (isProtectedPath && !session) {
-        const redirectUrl = new URL('/login', req.url);
-        redirectUrl.searchParams.set('redirect', req.nextUrl.pathname);
-        return NextResponse.redirect(redirectUrl);
+    if (isProtected && !session) {
+        const url = new URL('/login', req.url);
+        url.searchParams.set('redirect', path);
+        return NextResponse.redirect(url);
     }
 
-    // If trying to access auth routes with active session
-    if (isAuthPath && session) {
+    if (isAuth && session) {
         return NextResponse.redirect(new URL('/dashboard', req.url));
     }
 
-    // Add cache control headers to prevent back button access after logout
-    if (isProtectedPath) {
-        response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-        response.headers.set('Pragma', 'no-cache');
-        response.headers.set('Expires', '0');
-        response.headers.set('Surrogate-Control', 'no-store');
+    if (isProtected) {
+        response.headers.set('Cache-Control', 'no-store, max-age=0');
     }
 
     return response;

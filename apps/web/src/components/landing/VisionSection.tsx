@@ -97,7 +97,7 @@ export default function VisionSection() {
 
                     <div className="space-y-24">
                         {timeline.map((item, i) => (
-                            <TimelineItem key={i} item={item} index={i} />
+                            <TimelineItem key={item.phase} item={item} index={i} />
                         ))}
                     </div>
                 </div>
@@ -133,7 +133,17 @@ const Highlight = ({ children, color = "text-white", glow = "white" }: { childre
     );
 }
 
-const TimelineItem = ({ item, index }: { item: any; index: number }) => {
+interface TimelineItem {
+    phase: string;
+    title: string;
+    description: ReactNode;
+    icon: React.ElementType;
+    color: string;
+    bg: string;
+    border: string;
+}
+
+const TimelineItem = ({ item, index }: { item: TimelineItem; index: number }) => {
     const isEven = index % 2 === 0;
 
     return (

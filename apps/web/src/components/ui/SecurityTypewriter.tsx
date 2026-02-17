@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 
 export default function SecurityTypewriter({
     texts,
@@ -16,43 +15,45 @@ export default function SecurityTypewriter({
 }) {
     const [displayedText, setDisplayedText] = useState("");
     const [isDeleting, setIsDeleting] = useState(false);
-    const [index, setIndex] = useState(0); // Tracks which text/color to show
+    const [index, setIndex] = useState(0);
     const colors = ["text-emerald-500", "text-red-500"];
-    const [typingSpeed, setTypingSpeed] = useState(speed);
 
     useEffect(() => {
-        let timer: NodeJS.Timeout;
+        const currentText = texts[index % texts.length];
 
-        const handleTyping = () => {
-            const currentText = texts[index % texts.length];
-            const isFullText = displayedText === currentText;
-            const isNoText = displayedText === "";
+        // Typing
+        if (!isDeleting && displayedText !== currentText) {
+            const timeout = setTimeout(() => {
+                setDisplayedText(currentText.slice(0, displayedText.length + 1));
+            }, speed);
+            return () => clearTimeout(timeout);
+        }
 
-            if (isDeleting) {
-                setDisplayedText(currentText.substring(0, displayedText.length - 1));
-                setTypingSpeed(speed / 2);
-            } else {
-                setDisplayedText(currentText.substring(0, displayedText.length + 1));
-                setTypingSpeed(speed);
-            }
+        // Deleting
+        if (isDeleting && displayedText !== "") {
+            const timeout = setTimeout(() => {
+                setDisplayedText(displayedText.slice(0, -1));
+            }, speed / 2);
+            return () => clearTimeout(timeout);
+        }
 
-            if (!isDeleting && isFullText) {
-                // Finished typing, wait before deleting
-                timer = setTimeout(() => setIsDeleting(true), 1500);
-            } else if (isDeleting && isNoText) {
-                // Finished deleting, switch text/color and start typing
+        // Pause before deleting (Finished typing)
+        if (!isDeleting && displayedText === currentText) {
+            const timeout = setTimeout(() => {
+                setIsDeleting(true);
+            }, 1500);
+            return () => clearTimeout(timeout);
+        }
+
+        // Pause before typing next (Finished deleting)
+        if (isDeleting && displayedText === "") {
+            const timeout = setTimeout(() => {
                 setIsDeleting(false);
                 setIndex((prev) => (prev + 1) % texts.length);
-                timer = setTimeout(handleTyping, 500);
-            } else {
-                timer = setTimeout(handleTyping, typingSpeed);
-            }
-        };
-
-        timer = setTimeout(handleTyping, typingSpeed);
-
-        return () => clearTimeout(timer);
-    }, [displayedText, isDeleting, index, typingSpeed, texts, speed]);
+            }, 500);
+            return () => clearTimeout(timeout);
+        }
+    }, [displayedText, isDeleting, index, texts, speed]);
 
     return (
         <span className={`${className} ${colors[index % colors.length]} font-mono transition-colors duration-300`}>

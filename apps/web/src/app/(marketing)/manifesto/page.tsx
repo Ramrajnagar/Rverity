@@ -15,7 +15,6 @@ export default function ManifestoPage() {
 
             <Section className="pt-32 pb-20 relative z-10 min-h-screen flex flex-col items-center justify-center">
 
-                {/* The Digital Artifact (A4 Sheet equivalent) */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}

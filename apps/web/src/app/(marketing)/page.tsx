@@ -15,8 +15,6 @@ export default function Home() {
   return (
     <main className="relative min-h-screen w-full bg-black text-white selection:bg-purple-500/30">
       <NeuralBackground />
-
-      {/* Content sits on top of the background */}
       <div className="relative z-10 w-full">
         <HeroSection />
 
