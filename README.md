@@ -19,7 +19,7 @@ We live in a state of cognitive fracture.
 Your code lives in GitHub. Your research lives in Chrome. Your communication lives in Slack. Your thoughts live in Notion.
 These systems do not talk to each other. They are isolated silos of intelligence.
 
-As we approach the AGI horizon, this fragmentation becomes a liability. AI models are generic geniuses—they know everything about the world, but **nothing about you**. They lack the context of your specific history, your unique patterns, and your implicit knowledge.
+As we approach the AGI horizon, this fragmentation becomes a liability. AI models are generic geniuses they know everything about the world, but **nothing about you**. They lack the context of your specific history, your unique patterns, and your implicit knowledge.
 
 ### The Solution: Consilience
 
