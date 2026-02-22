@@ -41,55 +41,93 @@ export async function GET(request: Request) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        // Build query
-        let queryBuilder = supabase
-            .from('memories')
-            .select('*')
-            .eq('user_id', session.user.id);
+        let memories = [];
 
-        // Text search in content
+        // If query exists, perform Vector Search using the RPC function
         if (query) {
-            queryBuilder = queryBuilder.ilike('payload->>content', `%${query}%`);
+            try {
+                const { generateEmbedding } = await import('@/lib/openai');
+                const embedding = await generateEmbedding(query);
+
+                const { data, error } = await supabase.rpc('match_memories', {
+                    query_embedding: embedding,
+                    match_threshold: 0.5, // adjustable threshold
+                    match_count: limit,
+                    p_user_id: session.user.id
+                });
+
+                if (error) {
+                    console.error('[API] Vector search error:', error);
+                    throw error;
+                }
+
+                memories = data || [];
+
+                // Filter by sources/tags in memory if needed (or update RPC to handle it)
+                // The current RPC implementation returns all matches, we can filter here for simplicity for now
+                if (sources.length > 0) {
+                    memories = memories.filter((m: any) => sources.includes(m.source));
+                }
+                if (tags.length > 0) {
+                    memories = memories.filter((m: any) => m.tags && tags.some(t => m.tags.includes(t)));
+                }
+
+            } catch (e) {
+                console.error('Vector search failed, falling back to basic search', e);
+                // Fallback handled below (if memories is empty)
+                // Actually, if vector search fails, we should probably fall back to text search
+            }
         }
 
-        // Filter by sources
-        if (sources.length > 0) {
-            queryBuilder = queryBuilder.in('payload->>source', sources);
-        }
+        // Fallback to basic text/filter search if no query or vector search failed/empty
+        if (memories.length === 0) {
+            let queryBuilder = supabase
+                .from('memories')
+                .select('*')
+                .eq('user_id', session.user.id);
 
-        // Filter by tags (contains any of the tags)
-        if (tags.length > 0) {
-            queryBuilder = queryBuilder.contains('payload->tags', tags);
-        }
+            // Text search in content (standard ILIKE)
+            if (query) {
+                queryBuilder = queryBuilder.ilike('content', `%${query}%`);
+            }
 
-        // Date range
-        if (dateFrom) {
-            queryBuilder = queryBuilder.gte('created_at', dateFrom);
-        }
-        if (dateTo) {
-            queryBuilder = queryBuilder.lte('created_at', dateTo);
-        }
+            // Filter by sources
+            if (sources.length > 0) {
+                queryBuilder = queryBuilder.in('source', sources);
+            }
 
-        // Order and limit
-        queryBuilder = queryBuilder
-            .order('created_at', { ascending: false })
-            .limit(Math.min(limit, 100)); // Max 100 results
+            // Filter by tags (contains any of the tags)
+            if (tags.length > 0) {
+                queryBuilder = queryBuilder.contains('tags', tags);
+            }
 
-        const { data: memories, error } = await queryBuilder;
+            // Date range
+            if (dateFrom) {
+                queryBuilder = queryBuilder.gte('created_at', dateFrom);
+            }
+            if (dateTo) {
+                queryBuilder = queryBuilder.lte('created_at', dateTo);
+            }
 
-        if (error) {
-            console.error('[API] Search error:', error);
-            return NextResponse.json(
-                { error: 'Search failed' },
-                { status: 500 }
-            );
+            // Order and limit
+            queryBuilder = queryBuilder
+                .order('created_at', { ascending: false })
+                .limit(Math.min(limit, 100));
+
+            const { data, error } = await queryBuilder;
+
+            if (error) {
+                console.error('[API] Search error:', error);
+                return NextResponse.json({ error: 'Search failed' }, { status: 500 });
+            }
+            memories = data || [];
         }
 
         return NextResponse.json({
             status: 'success',
             data: {
-                memories: memories || [],
-                count: memories?.length || 0,
+                memories: memories,
+                count: memories.length,
                 query: {
                     text: query,
                     sources,

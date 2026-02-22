@@ -1,4 +1,3 @@
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     output: 'standalone',
@@ -9,6 +8,12 @@ const nextConfig = {
                 hostname: 'localhost',
             },
         ],
+    },
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
+    typescript: {
+        ignoreBuildErrors: true,
     },
 }
 

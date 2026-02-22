@@ -84,7 +84,7 @@ export async function GET(request: Request) {
             });
 
             // Check consecutive days from today backwards
-            let checkDate = new Date(todayStart);
+            const checkDate = new Date(todayStart);
             while (true) {
                 const dayKey = `${checkDate.getFullYear()}-${checkDate.getMonth()}-${checkDate.getDate()}`;
                 if (uniqueDays.has(dayKey)) {

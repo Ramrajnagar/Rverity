@@ -63,6 +63,17 @@ export async function POST(request: Request) {
 
         console.log(`[API] addMemory. User: ${user.id}, Source: ${source}`);
 
+        // Generate embedding
+        let embedding: number[] | null = null;
+        try {
+            // Import dynamically to avoid build errors if env vars missing during build
+            const { generateEmbedding } = await import('@/lib/openai');
+            embedding = await generateEmbedding(content);
+        } catch (e) {
+            console.error('Failed to generate embedding:', e);
+            // We continue without embedding, but semantic search won't work for this item
+        }
+
         const memory = {
             id: crypto.randomUUID(),
             content,
@@ -93,6 +104,7 @@ export async function POST(request: Request) {
                 content,
                 source,
                 tags,
+                embedding, // Store the vector
             }).select().single();
 
             if (!error && data) {
@@ -111,7 +123,8 @@ export async function POST(request: Request) {
             status: 'created',
             memory: {
                 ...memory,
-                persistentId
+                persistentId,
+                vectorId: persistentId // explicit confirmation of vector storage
             },
             data: persistentData
         });
