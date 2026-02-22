@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
-import { Mail, Lock, Loader2 } from 'lucide-react';
+import { Mail, Lock, Loader2, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
 interface AuthFormProps {
@@ -76,8 +76,16 @@ export function AuthForm({ type }: AuthFormProps) {
     };
 
     return (
-        <div className="w-full max-w-md p-8 space-y-6 bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
-            <div className="text-center">
+        <div className="relative w-full max-w-md p-8 space-y-6 bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
+            <Link
+                href="/"
+                className="absolute left-6 top-6 text-gray-400 hover:text-white transition-colors p-1 hover:bg-white/10 rounded-full"
+                title="Back to home"
+            >
+                <ArrowLeft className="w-5 h-5" />
+            </Link>
+
+            <div className="text-center pt-2">
                 <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
                     {type === 'login' ? 'Welcome Back' : 'Create Account'}
                 </h1>
