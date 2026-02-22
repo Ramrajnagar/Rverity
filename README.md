@@ -1,122 +1,131 @@
 <div align="center">
-  <img src="apps/web/public/rverity-brand.svg" alt="Rverity Logo" width="120" height="120">
+  <a href="https://rverity.ai">
+    <img src="apps/web/public/rverity-brand.svg" alt="Rverity Logo" width="120" height="120">
+  </a>
 
-  <h1>RVERITY 🧠</h1>
-
-  <p align="center">
-    <strong>The self-hosted Knowledge Graph and Operating System for your Digital Soul.</strong>
-  </p>
+  <h1>RVERITY</h1>
 
   <p align="center">
-    <a href="https://rverityai.vercel.app">Live Demo</a> •
-    <a href="#system-architecture">Architecture</a> •
-    <a href="#quick-start">Quick Start</a> •
-    <a href="https://github.com/Ramrajnagar/Rverity/issues">Report Bug</a>
-  </p>
-
-  <p align="center">
-    <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
-    <img alt="Next.js" src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" />
-    <img alt="Supabase" src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" />
-    <img alt="WebGL" src="https://img.shields.io/badge/WebGL-990000?style=for-the-badge&logo=webgl&logoColor=white" />
+    <strong>The Operating System for your Digital Soul.</strong>
   </p>
 </div>
 
 ---
 
-## ⚡ The Context Collapse
+### The Fragmentation Crisis
 
-Your digital life is profoundly fragmented.
+We live in a state of cognitive fracture.
 
-**Engineers lose up to 30% of their day to context switching.** Your codebase lives in **GitHub**, your research is scattered across 50 **Chrome** tabs, your technical decisions are buried deep in **Slack** threads, and your personal thoughts are trapped inside **Notion**. 
+Your code lives in GitHub. Your research lives in Chrome. Your communication lives in Slack. Your thoughts live in Notion.
+These systems do not talk to each other. They are isolated silos of intelligence.
 
-Right now, we are building powerful AI systems (LLMs, coding agents, co-pilots) that have access to the entire knowledge of humanity—but they know absolutely **nothing** about *you*. They lack your unique history, your mental models, and your implicit development context.
+As we approach the AGI horizon, this fragmentation becomes a liability. AI models are generic geniuses they know everything about the world, but **nothing about you**. They lack the context of your specific history, your unique patterns, and your implicit knowledge.
 
-## 🔮 The Solution: Rverity
+### The Solution: Consilience
 
-**Rverity** is an open-source, self-hosted, personal **Knowledge Graph**. It is an infrastructure layer that sits silently alongside your workflow, observing and streaming your interactions into a deeply unified semantic database.
+Rverity is a self-hosted **Knowledge Graph** that unifies your digital existence.
+It is an infrastructure layer that sits below your applications, observing the data stream of your life. It vectors, links, and indexes every interaction into a single, navigable 3D graph.
 
-It doesn’t just "search" your history via keywords. By chunking your data and generating high-fidelity vector embeddings (via OpenAI/Anthropic/FreeLLM), Rverity **reconstructs your train of thought** using a mathematical 3D relationship visualizer.
-
-### Why use Rverity?
-- 🔒 **Absolute Sovereignty**: You run the stack. Your vector weights belong to you. Your memories stay local.
-- 🚀 **Blazing Fast**: Supabase + Redis cache guarantees sub-millisecond context retrieval.
-- 🎨 **Aesthetic Superiority**: Built with breathtaking WebGL visualizers, so your thoughts look as beautiful as they are.
+It does not just "search" your history. It reconstructs your train of thought.
 
 ---
 
-## 🏗 System Architecture
+## Technical Architecture
 
-Rverity is built as a highly robust, scalable **Monorepo** orchestrating independent applications, extensions, and microservices perfectly synced through a centralized AI pipeline.
+We adhere to a philosophy of **sovereign computing**. You run the stack. You own the weights. You control the graph.
 
-### Core Stack Components
-* **Frontend Application (`apps/web`)**: Next.js 14+ standard leveraging React Server Components, Server Actions for mutations, and highly-optimized native TailwindCSS.
-* **Semantic Database & Auth**: Powered by **Supabase**. We route all user authentication securely, while taking full advantage of `pgvector` inside PostgreSQL for high-dimensional cosine similarity searches.
-* **Vector Embeddings**: LLM-agnostic design (`src/lib/openai.ts`) allowing developers to plug in OpenAI's `text-embedding-3-small`, Anthropic, or even free-tier drop-in replacements like FreeLLM API to generate 1536-dimensional semantic tokens.
-* **Queue & Caching (`Upstash Redis`)**: Used to aggressively cache frequent memory hits and orchestrate background processing events for massive GitHub repository ingestions.
+### Core Infrastructure
+- **Runtime**: Next.js 16 (App Router) on Node.js Edge.
+- **State Management**: Server-side highly consistent state via TanStack Query.
+- **Visual Engine**: React Three Fiber (WebGL) for high-performance 3D graph rendering.
+- **Vector Database**: Supabase (PostgreSQL + pgvector) for high-dimensional semantic search.
+- **Caching**: Upstash Redis for sub-millisecond context retrieval.
 
-### Integration Tooling
-1. **VS Code Extension (`extensions/vscode`)**: 
-   A lightweight TypeScript extension that observes file read/writes, terminal commits, and active viewport data. It intelligently debounces keystrokes to prevent noise, only saving highly contextual diffs into your graph.
-2. **Chrome Extension (`extensions/chrome`)**: 
-   A manifest V3 extension running background service workers that record the precise documentation URL, highlighted texts, and session timestamps of your engineering research.
-3. **GitHub Webhooks Server (`apps/web/src/app/api/github/webhook`)**: 
-   Receives massive payloads of PR pushes, issue resolutions, and merge events, slicing them into parsable markdown memories.
+### System Diagram
 
-### Data Synthesis Pipeline
-1. **Ingest Phase**: An event is caught via extension or webhook.
-2. **Sanitize & Vectorize Phase**: AI strips noisy JSON artifacts → Generates Embedding array matching the cognitive context.
-3. **Graphing Phase**: React Three Fiber reads the semantic proximity in real-time, pulling floating graph nodes towards each other using physics-based force simulation (`d3-force`).
+```mermaid
+graph TD
+    subgraph Sources ["Data Ingestion (Extensions & Webhooks)"]
+        VS[VS Code Extension]
+        CH[Chrome Extension]
+        GH[GitHub App]
+    end
 
----
+    subgraph Core ["Rverity Core (Next.js Application)"]
+        API[API & Server Actions]
+        Embed[LLM Embedding Engine]
+    end
 
-## 🚀 Quick Start
+    subgraph Storage ["State & Persistence"]
+        DB[(Supabase / pgvector)]
+        Cache[(Upstash Redis)]
+    end
 
-> **Prerequisites:** Node.js 18+, Git, and a free Supabase account.
+    subgraph Client ["Visual Interaction"]
+        UI[Dashboard Interface]
+        Graph[React Three Fiber 3D Graph]
+    end
 
-1. **Clone the Source**
-   ```bash
-   git clone https://github.com/Ramrajnagar/Rverity.git
-   cd Rverity
-   ```
+    VS -->|Source code, Editor context| API
+    CH -->|Browsing history, Highlights| API
+    GH -->|Commits, Issues, PR events| API
 
-2. **Install Dependencies**
-   ```bash
-   npm install
-   ```
+    API <-->|Generate vector embeddings| Embed
+    API <-->|Semantic search & storage| DB
+    API <-->|Cache context| Cache
 
-3. **Configure Environment**
-   Duplicate `.env.example` into `.env` (or `.env.local` inside `apps/web`) and populate your Supabase and LLM API keys.
-   ```bash
-   SUPABASE_URL=https://your-project.supabase.co
-   SUPABASE_ANON_KEY=your-anon-key
-   AI_API_KEY=your-llm-api-key
-   ```
+    UI <-->|CRUD & Auth| API
+    Graph <-->|Query relationship nodes| API
+```
 
-4. **Initialize Database**
-   Run the embedded SQL migrations in your Supabase SQL editor located at `apps/web/supabase/migrations/20240523000000_init_vector.sql`
-
-5. **Engage the Runtime Matrix**
-   ```bash
-   npm run dev
-   ```
-   *Dashboard available instantly at `http://localhost:3000`*
+### The Pipeline
+1.  **Ingestion**: Passive observers in VS Code and Chrome capture text, code, and navigational intent.
+2.  **Synthesis**: Data is chunked and embedded using OpenAI/Anthropic high-fidelity models.
+3.  **Graphing**: Semantic relationships are established between disparate data points (e.g., linking a StackOverflow article to a specific Git commit).
+4.  **Recall**: The Context Engine anticipates your needs, surfacing relevant memories before you explicitly query for them.
 
 ---
 
-## 🧭 The Roadmap
+## Quick Start
 
-Rverity is actively compounding its capabilities. We welcome pull requests that align with our core manifesto of speed, privacy, and aesthetics.
+We assume you are comfortable with a terminal.
 
-- [x] WebGL 3D Knowledge Graph
-- [x] Multi-tenant Authentication with Supabase
-- [x] GitHub Full-Repo Webhook Ingestion
-- [ ] **AI-Predictive Prototyping**: Local LLM agents that write code matching the styles found in your personal graph.
-- [ ] **Notion / Slack Native Integrations**: Webhook ingestion for text-based platforms.
-- [ ] **Fully Offline LLMs**: Wrapping `llama.cpp` to ditch external API reliance completely.
+1.  **Clone the Protocol**
+    ```bash
+    git clone https://github.com/Ramrajnagar/Rverity.git
+    cd Rverity
+    ```
 
-<br>
+2.  **Ignite the Engine**
+    ```bash
+    npm install
+    npm run dev
+    ```
+
+3.  **Access the Interface**
+    Open `http://localhost:3000`. The graph will begin assembling immediately.
+
+---
+
+## The Manifesto
+
+We maximize for three variables:
+
+1.  **Speed**: Latency is the enemy of thought. Every interaction must be instant.
+2.  **Privacy**: Your thoughts are your own. We build for a local-first future where data never leaves your perimeter without explicit consent.
+3.  **Aesthetics**: Tools for the mind should be beautiful. We reject the utilitarian drabness of enterprise software.
+
+## Roadmap
+
+Refining the interface between human intent and machine execution.
+
+-   [ ] **Neural Visualizations**: Immersive WebGL graph navigation.
+-   [ ] **Predictive Context**: Agents that code *with* you, not just for you.
+-   [ ] **Local Vaults**: Fully offline, local-only vector storage.
+-   [ ] **Brain-Computer Interface**: Experimental typeless input streams.
+
+---
 
 <div align="center">
-    <p>Built with conviction by <a href="https://github.com/Ramrajnagar">Ramraj</a> and the <strong>Rverity</strong> Team.</p>
+    <p>Built with conviction by <a href="https://github.com/Ramrajnagar">Ramraj</a> and the Rverity Team.</p>
 </div>
