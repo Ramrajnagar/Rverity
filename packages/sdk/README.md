@@ -418,9 +418,9 @@ MIT License - see [LICENSE](../../LICENSE) for details.
 
 - [Documentation](http://localhost:3000/docs)
 - [API Reference](http://localhost:3000/docs/api)
-- [GitHub](https://github.com/Ramrajnagar/neurosync-ai)
+- [GitHub](https://github.com/Ramrajnagar/Rverity)
 
 ## Support
 
 - Email: support@neurosync.ai
-- Issues: [GitHub Issues](https://github.com/Ramrajnagar/neurosync-ai/issues)
+- Issues: [GitHub Issues](https://github.com/Ramrajnagar/Rverity/issues)

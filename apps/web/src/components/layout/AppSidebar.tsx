@@ -91,17 +91,8 @@ export function AppSidebar({ isOpen, onClose }: AppSidebarProps) {
             // Close sidebar
             onClose();
 
-            // Redirect to home page and replace history
-            router.replace('/');
-
-            // Additional history manipulation to prevent back navigation
-            setTimeout(() => {
-                window.history.pushState(null, '', '/');
-                window.addEventListener('popstate', function preventBack() {
-                    window.history.pushState(null, '', '/');
-                    window.removeEventListener('popstate', preventBack);
-                });
-            }, 100);
+            // Redirect to home page with a full window reload to clear Next.js Route Cache
+            window.location.href = '/login';
         } catch (error) {
             console.error('Logout error:', error);
         }

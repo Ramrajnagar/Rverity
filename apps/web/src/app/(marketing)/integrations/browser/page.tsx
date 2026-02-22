@@ -10,7 +10,7 @@ export default function BrowserPage() {
             description="Capture your browsing context automatically. Build a searchable archive of every article, research session, and important webpage you visit."
             icon={Chrome}
             installCommand="Direct One-Click Connection (Coming Soon) or load unpacked extension"
-            downloadLink="https://github.com/Ramrajnagar/neurosync-ai/tree/main/extensions/chrome"
+            downloadLink="https://github.com/Ramrajnagar/Rverity/tree/main/extensions/chrome"
             configureLink="/settings"
             configureLabel="Get API Key"
             docsLink="/docs"

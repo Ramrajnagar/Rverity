@@ -28,7 +28,9 @@ export function IntegrationsSection() {
 
     const handleGitHubConnect = () => {
         // Redirect to GitHub App installation
-        window.location.href = 'https://github.com/apps/neurosync-ai/installations/new';
+        window.location.href = process.env.NEXT_PUBLIC_GITHUB_APP_URL
+            ? `${process.env.NEXT_PUBLIC_GITHUB_APP_URL}/installations/new`
+            : 'https://github.com/Ramrajnagar/Rverity';
     };
 
     const handleGitHubDisconnect = async (installationId: number) => {

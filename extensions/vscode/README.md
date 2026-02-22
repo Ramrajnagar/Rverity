@@ -177,7 +177,7 @@ NeuroSync works offline! When you're disconnected:
 
 - Email: support@neurosync.ai
 - Discord: [Join our community](https://discord.gg/rverity)
-- Issues: [GitHub Issues](https://github.com/Ramrajnagar/neurosync-ai/issues)
+- Issues: [GitHub Issues](https://github.com/Ramrajnagar/Rverity/issues)
 - Docs: [neurosync.ai/docs](http://localhost:3000/docs)
 
 ## License

@@ -10,7 +10,7 @@ export default function VSCodePage() {
             description="Automatically capture your coding context, file changes, and Git commits. Build a comprehensive memory of your development work without manual effort."
             icon={Code2}
             installCommand="Direct One-Click Connection (Coming Soon) or install manually"
-            downloadLink="https://github.com/Ramrajnagar/neurosync-ai/tree/main/extensions/vscode"
+            downloadLink="https://github.com/Ramrajnagar/Rverity/tree/main/extensions/vscode"
             configureLink="/settings"
             configureLabel="Get API Key"
             docsLink="/docs"

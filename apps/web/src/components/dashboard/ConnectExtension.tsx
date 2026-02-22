@@ -72,7 +72,7 @@ export function ConnectExtension() {
                 <Button
                     variant="outline"
                     className="w-full"
-                    onClick={() => window.open(process.env.NEXT_PUBLIC_GITHUB_APP_URL || 'https://github.com/apps/neurosync-ai', '_blank')}
+                    onClick={() => window.open(process.env.NEXT_PUBLIC_GITHUB_APP_URL || 'https://github.com/Ramrajnagar/Rverity', '_blank')}
                 >
                     Configure GitHub
                 </Button>

@@ -56,7 +56,7 @@ We assume you are comfortable with a terminal.
 1.  **Clone the Protocol**
     ```bash
     git clone https://github.com/Ramrajnagar/Rverity.git
-    cd neurosync-ai
+    cd Rverity
     ```
 
 2.  **Ignite the Engine**

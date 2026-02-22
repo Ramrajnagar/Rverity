@@ -308,7 +308,7 @@ View your GitHub activity in the dashboard:
 ## Support
 
 - Email: support@rverity.ai
-- Issues: [GitHub Issues](https://github.com/Ramrajnagar/neurosync-ai/issues)
+- Issues: [GitHub Issues](https://github.com/Ramrajnagar/Rverity/issues)
 - Docs: [Documentation](http://localhost:3000/docs/github)
 
 ---
