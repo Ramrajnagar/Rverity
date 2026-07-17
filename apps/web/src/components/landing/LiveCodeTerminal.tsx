@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Check, Copy, Terminal, Sparkles } from "lucide-react";
 
 const codeLines = [
