@@ -1,15 +1,15 @@
 
 import type { Metadata } from 'next';
-import { Inter, Outfit, Space_Grotesk } from 'next/font/google';
+import { Inter, JetBrains_Mono, Space_Grotesk } from 'next/font/google';
 import { Toaster } from 'sonner';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
+const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains-mono' });
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space' });
 
 export const metadata: Metadata = {
-  title: 'Rverity - Absolute Truth for Your Digital Mind',
+  title: 'Rverity - The Operating System for your Digital Soul',
   description: 'Unify your fragmented existence. Rverity syncs your code, docs, and knowledge into one living, queryable graph.',
 };
 
@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.variable} ${outfit.variable} ${spaceGrotesk.variable} font-sans bg-black text-white min-h-screen selection:bg-cyan-500/30`}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable} font-sans`}>
         {children}
         <Toaster position="top-right" theme="dark" />
       </body>

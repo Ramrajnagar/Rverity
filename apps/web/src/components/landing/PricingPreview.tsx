@@ -1,12 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Section from "@/components/ui/Section";
 import { Check, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
-import clsx from "clsx";
 
 export default function PricingPreview() {
     const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly");
@@ -64,154 +62,126 @@ export default function PricingPreview() {
             features: ["5 Projects", "Basic Analytics", "Community Support", "1GB Storage"],
             recommended: false,
             planId: "free",
-            buttonText: "Start for Free",
-            theme: {
-                border: "group-hover:border-cyan-500/50",
-                shadow: "group-hover:shadow-[0_0_40px_-10px_rgba(6,182,212,0.3)]",
-                text: "text-cyan-400",
-                bg: "group-hover:bg-cyan-500/10",
-                button: "hover:bg-cyan-500 hover:shadow-[0_0_20px_rgba(6,182,212,0.5)]",
-                check: "text-cyan-400",
-                checkBg: "bg-cyan-500/20",
-            }
+            buttonText: "Start for free",
         },
         {
-            tier: "Pro Creator",
+            tier: "Pro",
             price: { monthly: "9", yearly: "90" },
             period: { monthly: "/mo", yearly: "/yr" },
             features: ["Unlimited Projects", "Advanced Analytics", "Priority Support", "Automation Tools"],
             recommended: true,
             planId: "P-PRO-CREATOR",
-            buttonText: "Subscribe to Pro",
-            theme: {
-                border: "border-purple-500/50",
-                shadow: "shadow-[0_0_40px_-10px_rgba(168,85,247,0.3)]",
-                text: "text-purple-400",
-                bg: "bg-purple-500/10",
-                button: "bg-white text-black hover:bg-purple-400 hover:shadow-[0_0_20px_rgba(168,85,247,0.5)]",
-                check: "text-purple-400",
-                checkBg: "bg-purple-500/20",
-                badge: "from-purple-500 to-pink-500 shadow-purple-500/20"
-            }
+            buttonText: "Get started",
         },
         {
-            tier: "Business Plus",
+            tier: "Business",
             price: { monthly: "29", yearly: "290" },
             period: { monthly: "/mo", yearly: "/yr" },
             features: ["Team Accounts", "API Access", "White-label Export", "Dedicated Success Manager"],
             recommended: false,
             planId: "P-BUSINESS-PLUS",
-            buttonText: "Subscribe to Business",
-            theme: {
-                border: "group-hover:border-amber-500/50",
-                shadow: "group-hover:shadow-[0_0_40px_-10px_rgba(245,158,11,0.3)]",
-                text: "text-amber-400",
-                bg: "group-hover:bg-amber-500/10",
-                button: "hover:bg-amber-500 hover:shadow-[0_0_20px_rgba(245,158,11,0.5)]",
-                check: "text-amber-400",
-                checkBg: "bg-amber-500/20",
-            }
+            buttonText: "Contact sales",
         },
     ];
 
     return (
-        <Section className="py-32 relative overflow-hidden" id="pricing">
-            <div className="mb-20 text-center relative z-10">
-                <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-6 font-display">
-                    INVEST IN CLARITY
-                </h2>
-                <p className="text-zinc-400 max-w-xl mx-auto text-lg mb-8">
-                    Stop paying for fragmentation. One subscription for your entire second brain.
-                </p>
-
-                {/* Toggle */}
-                <div className="flex items-center justify-center gap-4">
-                    <span className={`text-sm font-medium transition-colors ${billingCycle === "monthly" ? "text-white" : "text-zinc-500"}`}>Monthly</span>
-                    <button
-                        onClick={() => setBillingCycle(billingCycle === "monthly" ? "yearly" : "monthly")}
-                        className="relative h-8 w-14 rounded-full bg-white/10 p-1 transition-colors hover:bg-white/20"
-                    >
-                        <motion.div
-                            animate={{ x: billingCycle === "monthly" ? 0 : 24 }}
-                            transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                            className="h-6 w-6 rounded-full bg-primary shadow-lg"
-                        />
-                    </button>
-                    <span className={`text-sm font-medium transition-colors ${billingCycle === "yearly" ? "text-white" : "text-zinc-500"}`}>
-                        Yearly <span className="text-emerald-400 text-xs ml-1 font-bold">(Save 20%)</span>
-                    </span>
-                </div>
-            </div>
-
-            <div className="grid gap-8 md:grid-cols-3 max-w-6xl mx-auto relative z-10 px-4 pt-4">
-                {plans.map((plan, i) => (
+        <section className="py-24 md:py-32 border-t border-white/[0.06]" id="pricing">
+            <div className="mx-auto max-w-6xl px-6">
+                <div className="mb-16 text-center">
                     <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 12 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: i * 0.1 }}
-                        className={clsx(
-                            "relative flex flex-col rounded-2xl border p-8 backdrop-blur-xl group transition-all duration-300 hover:-translate-y-2",
-                            plan.recommended ? "bg-black/60" : "bg-black/40 border-white/10",
-                            plan.theme.border,
-                            plan.theme.shadow
-                        )}
+                        transition={{ duration: 0.4 }}
                     >
-                        {plan.recommended && (
-                            <>
-                                <div className={`absolute inset-0 bg-gradient-to-b opacity-20 pointer-events-none rounded-2xl ${plan.theme.bg}`} />
-                                <div className={`absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r px-4 py-1 text-xs font-bold text-white shadow-lg ${plan.theme.badge}`}>
-                                    MOST POPULAR
-                                </div>
-                            </>
-                        )}
-                        {!plan.recommended && (
-                            <div className={`absolute inset-0 bg-gradient-to-b from-transparent to-transparent opacity-0 transition-opacity duration-300 pointer-events-none rounded-2xl ${plan.theme.bg}`} />
-                        )}
+                        <h2 className="text-3xl md:text-4xl font-bold tracking-[-0.02em] text-white font-display">
+                            Simple pricing
+                        </h2>
+                        <p className="mt-3 text-neutral-400 max-w-lg mx-auto text-base">
+                            Start free. Upgrade when you need more.
+                        </p>
 
-                        <div className="mb-8 relative z-10">
-                            <h3 className={`text-lg font-bold uppercase tracking-wider ${plan.theme.text}`}>
-                                {plan.tier}
-                            </h3>
-                            <div className="mt-4 flex items-baseline">
-                                <span className="text-5xl font-bold text-white tracking-tighter">
-                                    ${plan.price[billingCycle]}
-                                </span>
-                                <span className="ml-2 text-sm text-zinc-500 font-medium">
-                                    {typeof plan.period === 'string' ? plan.period : plan.period[billingCycle]}
-                                </span>
-                            </div>
+                        <div className="flex items-center justify-center gap-3 mt-8">
+                            <span className={`text-sm font-medium transition-colors ${billingCycle === "monthly" ? "text-white" : "text-neutral-500"}`}>
+                                Monthly
+                            </span>
+                            <button
+                                onClick={() => setBillingCycle(billingCycle === "monthly" ? "yearly" : "monthly")}
+                                className="relative h-6 w-11 rounded-full bg-white/[0.08] p-0.5 transition-colors hover:bg-white/[0.12]"
+                            >
+                                <motion.div
+                                    animate={{ x: billingCycle === "monthly" ? 0 : 20 }}
+                                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                                    className="h-5 w-5 rounded-full bg-white"
+                                />
+                            </button>
+                            <span className={`text-sm font-medium transition-colors ${billingCycle === "yearly" ? "text-white" : "text-neutral-500"}`}>
+                                Yearly <span className="text-[#44FFA4] text-xs ml-1">(Save 20%)</span>
+                            </span>
                         </div>
-
-                        <ul className="mb-10 space-y-4 flex-1 relative z-10">
-                            {plan.features.map((feature, idx) => (
-                                <li key={idx} className="flex items-center gap-3 text-sm text-zinc-300">
-                                    <div className={`flex items-center justify-center h-5 w-5 rounded-full ${plan.theme.checkBg} ${plan.theme.check}`}>
-                                        <Check className="h-3 w-3" />
-                                    </div>
-                                    {feature}
-                                </li>
-                            ))}
-                        </ul>
-
-                        <button
-                            onClick={() => handleSubscribe(plan.planId)}
-                            disabled={loading === plan.planId}
-                            className={clsx(
-                                "w-full rounded-xl px-6 py-4 font-bold text-sm transition-all duration-300 relative z-10 flex items-center justify-center gap-2",
-                                plan.theme.button || "bg-white/5 text-white border border-white/10 hover:bg-white/10 hover:border-white/20"
-                            )}
-                        >
-                            {loading === plan.planId ? (
-                                <Loader2 className="h-4 w-4 animate-spin" />
-                            ) : (
-                                plan.buttonText
-                            )}
-                        </button>
                     </motion.div>
-                ))}
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-3">
+                    {plans.map((plan, i) => (
+                        <motion.div
+                            key={i}
+                            initial={{ opacity: 0, y: 12 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.4, delay: i * 0.05 }}
+                            className={`relative flex flex-col rounded-xl border p-6 transition-all duration-150 ${
+                                plan.recommended
+                                    ? "bg-white/[0.04] border-[#00A3FF]/30"
+                                    : "bg-white/[0.02] border-white/[0.06] hover:border-white/[0.12]"
+                            }`}
+                        >
+                            {plan.recommended && (
+                                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 text-[11px] font-medium text-[#00A3FF] bg-[#00A3FF]/10 border border-[#00A3FF]/20 rounded-full">
+                                    Most popular
+                                </div>
+                            )}
+
+                            <div className="mb-6">
+                                <h3 className="text-sm font-medium text-neutral-400">{plan.tier}</h3>
+                                <div className="mt-3 flex items-baseline">
+                                    <span className="text-4xl font-bold tracking-tight text-white">
+                                        ${plan.price[billingCycle]}
+                                    </span>
+                                    <span className="ml-1.5 text-sm text-neutral-500">
+                                        {typeof plan.period === 'string' ? plan.period : plan.period[billingCycle]}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <ul className="mb-8 space-y-2.5 flex-1">
+                                {plan.features.map((feature, idx) => (
+                                    <li key={idx} className="flex items-center gap-2.5 text-sm text-neutral-400">
+                                        <Check className="h-3.5 w-3.5 text-neutral-500 shrink-0" />
+                                        {feature}
+                                    </li>
+                                ))}
+                            </ul>
+
+                            <button
+                                onClick={() => handleSubscribe(plan.planId)}
+                                disabled={loading === plan.planId}
+                                className={`w-full rounded-full px-4 py-2.5 text-sm font-medium transition-all duration-150 flex items-center justify-center gap-2 ${
+                                    plan.recommended
+                                        ? "bg-[#00A3FF] text-white hover:bg-[#008FE0]"
+                                        : "bg-white/[0.06] text-neutral-300 hover:bg-white/[0.1] border border-white/[0.08]"
+                                }`}
+                            >
+                                {loading === plan.planId ? (
+                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                ) : (
+                                    plan.buttonText
+                                )}
+                            </button>
+                        </motion.div>
+                    ))}
+                </div>
             </div>
-        </Section>
+        </section>
     );
 }
