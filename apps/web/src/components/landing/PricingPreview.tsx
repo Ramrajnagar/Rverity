@@ -7,7 +7,6 @@ import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 
 export default function PricingPreview() {
-    const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly");
     const [loading, setLoading] = useState<string | null>(null);
     const router = useRouter();
 
@@ -56,30 +55,53 @@ export default function PricingPreview() {
 
     const plans = [
         {
-            tier: "Starter",
-            price: { monthly: "0", yearly: "0" },
-            period: "/mo",
-            features: ["5 Projects", "Basic Analytics", "Community Support", "1GB Storage"],
+            tier: "Free",
+            price: "0",
+            period: "forever",
+            description: "For individual developers exploring Rverity.",
+            features: [
+                "1,000 memories",
+                "VS Code + Chrome extensions",
+                "Personal knowledge graph",
+                "Semantic search",
+                "Community support",
+            ],
             recommended: false,
             planId: "free",
             buttonText: "Start for free",
         },
         {
-            tier: "Pro",
-            price: { monthly: "9", yearly: "90" },
-            period: { monthly: "/mo", yearly: "/yr" },
-            features: ["Unlimited Projects", "Advanced Analytics", "Priority Support", "Automation Tools"],
+            tier: "Team",
+            price: "12",
+            period: "/seat/mo",
+            description: "For teams that share context and build together.",
+            features: [
+                "Unlimited memories",
+                "Shared knowledge graphs",
+                "Team workspace",
+                "API access + webhooks",
+                "Priority support",
+                "Admin dashboard",
+            ],
             recommended: true,
-            planId: "P-PRO-CREATOR",
-            buttonText: "Get started",
+            planId: "P-TEAM",
+            buttonText: "Start team trial",
         },
         {
-            tier: "Business",
-            price: { monthly: "29", yearly: "290" },
-            period: { monthly: "/mo", yearly: "/yr" },
-            features: ["Team Accounts", "API Access", "White-label Export", "Dedicated Success Manager"],
+            tier: "Enterprise",
+            price: "Custom",
+            period: "",
+            description: "For organizations with custom requirements.",
+            features: [
+                "Everything in Team",
+                "Self-hosted deployment",
+                "SSO / SAML",
+                "Custom integrations",
+                "Dedicated success manager",
+                "SLA guarantee",
+            ],
             recommended: false,
-            planId: "P-BUSINESS-PLUS",
+            planId: "enterprise",
             buttonText: "Contact sales",
         },
     ];
@@ -95,30 +117,11 @@ export default function PricingPreview() {
                         transition={{ duration: 0.4 }}
                     >
                         <h2 className="text-3xl md:text-4xl font-bold tracking-[-0.02em] text-white font-display">
-                            Simple pricing
+                            Free for you. Paid for teams.
                         </h2>
                         <p className="mt-3 text-neutral-400 max-w-lg mx-auto text-base">
-                            Start free. Upgrade when you need more.
+                            Start free as an individual. Upgrade when your team needs shared context.
                         </p>
-
-                        <div className="flex items-center justify-center gap-3 mt-8">
-                            <span className={`text-sm font-medium transition-colors ${billingCycle === "monthly" ? "text-white" : "text-neutral-500"}`}>
-                                Monthly
-                            </span>
-                            <button
-                                onClick={() => setBillingCycle(billingCycle === "monthly" ? "yearly" : "monthly")}
-                                className="relative h-6 w-11 rounded-full bg-white/[0.08] p-0.5 transition-colors hover:bg-white/[0.12]"
-                            >
-                                <motion.div
-                                    animate={{ x: billingCycle === "monthly" ? 0 : 20 }}
-                                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                                    className="h-5 w-5 rounded-full bg-white"
-                                />
-                            </button>
-                            <span className={`text-sm font-medium transition-colors ${billingCycle === "yearly" ? "text-white" : "text-neutral-500"}`}>
-                                Yearly <span className="text-[#44FFA4] text-xs ml-1">(Save 20%)</span>
-                            </span>
-                        </div>
                     </motion.div>
                 </div>
 
@@ -145,13 +148,25 @@ export default function PricingPreview() {
                             <div className="mb-6">
                                 <h3 className="text-sm font-medium text-neutral-400">{plan.tier}</h3>
                                 <div className="mt-3 flex items-baseline">
-                                    <span className="text-4xl font-bold tracking-tight text-white">
-                                        ${plan.price[billingCycle]}
-                                    </span>
-                                    <span className="ml-1.5 text-sm text-neutral-500">
-                                        {typeof plan.period === 'string' ? plan.period : plan.period[billingCycle]}
-                                    </span>
+                                    {plan.price !== "Custom" && (
+                                        <span className="text-4xl font-bold tracking-tight text-white">
+                                            ${plan.price}
+                                        </span>
+                                    )}
+                                    {plan.price === "Custom" && (
+                                        <span className="text-4xl font-bold tracking-tight text-white">
+                                            Custom
+                                        </span>
+                                    )}
+                                    {plan.period && (
+                                        <span className="ml-1.5 text-sm text-neutral-500">
+                                            {plan.period}
+                                        </span>
+                                    )}
                                 </div>
+                                <p className="mt-2 text-sm text-neutral-500">
+                                    {plan.description}
+                                </p>
                             </div>
 
                             <ul className="mb-8 space-y-2.5 flex-1">
