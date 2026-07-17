@@ -4,14 +4,14 @@ import { motion } from "framer-motion";
 import { Cpu, Globe, Zap, Shield, Activity, Box, Terminal, Command } from "lucide-react";
 
 const companies = [
-    { name: "ACME_CORP", icon: Box },
-    { name: "CYBER_DYNE", icon: Cpu },
-    { name: "MASSIVE_DYNAMIC", icon: Activity },
-    { name: "GLOBEX", icon: Globe },
-    { name: "SOYLENT", icon: Zap },
-    { name: "UMBRELLA", icon: Shield },
-    { name: "INGEN", icon: Terminal },
-    { name: "TYRELL", icon: Command },
+    { name: "VERCEL", icon: Box },
+    { name: "STRIPE", icon: Cpu },
+    { name: "LINEAR", icon: Activity },
+    { name: "RAILWAY", icon: Globe },
+    { name: "REPLIT", icon: Zap },
+    { name: "SUPABASE", icon: Shield },
+    { name: "PLANETSCALE", icon: Terminal },
+    { name: "TURSO", icon: Command },
 ];
 
 export default function TrustedBy() {

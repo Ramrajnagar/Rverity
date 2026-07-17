@@ -11,8 +11,20 @@ const sources = [
 
 export default function DataFlowAnimation() {
     return (
-        <div className="relative w-full max-w-3xl mx-auto h-48 md:h-56">
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 600 200">
+        <section className="py-12 md:py-16">
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
+                className="text-center mb-8"
+            >
+                <p className="text-xs font-medium uppercase tracking-widest text-neutral-600">
+                    Context flows in from everywhere
+                </p>
+            </motion.div>
+            <div className="relative w-full max-w-3xl mx-auto h-48 md:h-56">
+                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 600 200">
                 {sources.map((source, i) => (
                     <g key={i}>
                         <motion.path
@@ -83,5 +95,6 @@ export default function DataFlowAnimation() {
                 </div>
             </motion.div>
         </div>
+        </section>
     );
 }
