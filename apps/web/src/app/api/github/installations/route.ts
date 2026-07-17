@@ -26,9 +26,9 @@ export async function GET(request: Request) {
             }
         );
 
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { user } } = await supabase.auth.getUser();
 
-        if (!session) {
+        if (!user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
@@ -36,7 +36,7 @@ export async function GET(request: Request) {
         const { data: installations, error } = await supabase
             .from('github_installations')
             .select('*')
-            .eq('user_id', session.user.id);
+            .eq('user_id', user.id);
 
         if (error) {
             console.error('[GitHub] Failed to get installations:', error);
@@ -97,9 +97,9 @@ export async function DELETE(request: Request) {
             }
         );
 
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { user } } = await supabase.auth.getUser();
 
-        if (!session) {
+        if (!user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
@@ -108,7 +108,7 @@ export async function DELETE(request: Request) {
             .from('github_installations')
             .delete()
             .eq('installation_id', parseInt(installationId))
-            .eq('user_id', session.user.id);
+            .eq('user_id', user.id);
 
         if (error) {
             console.error('[GitHub] Failed to delete installation:', error);

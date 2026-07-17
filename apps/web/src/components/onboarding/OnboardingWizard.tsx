@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronRight, Code2, Globe, ArrowRight, Loader2, Copy } from "lucide-react";
+import { Check, ChevronRight, Code2, Globe, ArrowRight, Loader2, Copy, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -18,16 +18,46 @@ export default function OnboardingWizard() {
     const [selectedTool, setSelectedTool] = useState<"vscode" | "browser" | null>(null);
     const [isVerifying, setIsVerifying] = useState(false);
     const [isVerified, setIsVerified] = useState(false);
+    const [copied, setCopied] = useState(false);
 
     const nextStep = () => setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
 
-    const handleVerify = () => {
+    const checkExtensionConnection = useCallback(async () => {
+        try {
+            const res = await fetch("/v1/health");
+            if (res.ok) {
+                setIsVerified(true);
+                return true;
+            }
+        } catch {
+            // Extension not detected yet
+        }
+        return false;
+    }, []);
+
+    const handleVerify = async () => {
         setIsVerifying(true);
-        // Simulate verification check
-        setTimeout(() => {
-            setIsVerifying(false);
-            setIsVerified(true);
-        }, 2000);
+        // Poll for extension connection every 2 seconds for up to 30 seconds
+        for (let i = 0; i < 15; i++) {
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            const connected = await checkExtensionConnection();
+            if (connected) {
+                setIsVerifying(false);
+                return;
+            }
+        }
+        // After timeout, allow manual skip
+        setIsVerifying(false);
+    };
+
+    const handleSkip = () => {
+        setIsVerified(true);
+    };
+
+    const copyCommand = (text: string) => {
+        navigator.clipboard.writeText(text);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
     };
 
     return (
@@ -41,7 +71,7 @@ export default function OnboardingWizard() {
                             className={cn(
                                 "h-8 w-8 rounded-full flex items-center justify-center border transition-all duration-300",
                                 i <= currentStep
-                                    ? "bg-emerald-500 border-emerald-500 text-black"
+                                    ? "bg-cyan-500 border-cyan-500 text-black"
                                     : "bg-black border-white/20 text-zinc-500"
                             )}
                         >
@@ -50,7 +80,7 @@ export default function OnboardingWizard() {
                         <span
                             className={cn(
                                 "text-xs font-medium transition-colors",
-                                i <= currentStep ? "text-emerald-500" : "text-zinc-600"
+                                i <= currentStep ? "text-cyan-500" : "text-zinc-600"
                             )}
                         >
                             {step.title}
@@ -70,7 +100,7 @@ export default function OnboardingWizard() {
                             exit={{ opacity: 0, x: -20 }}
                             className="flex-1 flex flex-col items-center text-center justify-center"
                         >
-                            <div className="h-16 w-16 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6">
+                            <div className="h-16 w-16 bg-cyan-500 rounded-2xl flex items-center justify-center mb-6">
                                 <Check className="h-8 w-8 text-black" />
                             </div>
                             <h2 className="text-3xl font-bold text-white mb-4">Welcome to Rverity</h2>
@@ -103,7 +133,7 @@ export default function OnboardingWizard() {
                                     className={cn(
                                         "p-6 rounded-xl border flex flex-col items-center gap-4 transition-all hover:bg-white/5",
                                         selectedTool === "vscode"
-                                            ? "border-emerald-500 bg-emerald-500/10"
+                                            ? "border-cyan-500 bg-cyan-500/10"
                                             : "border-white/10 bg-white/5"
                                     )}
                                 >
@@ -116,7 +146,7 @@ export default function OnboardingWizard() {
                                     className={cn(
                                         "p-6 rounded-xl border flex flex-col items-center gap-4 transition-all hover:bg-white/5",
                                         selectedTool === "browser"
-                                            ? "border-emerald-500 bg-emerald-500/10"
+                                            ? "border-cyan-500 bg-cyan-500/10"
                                             : "border-white/10 bg-white/5"
                                     )}
                                 >
@@ -129,7 +159,7 @@ export default function OnboardingWizard() {
                                 <button
                                     onClick={nextStep}
                                     disabled={!selectedTool}
-                                    className="px-6 py-2 bg-emerald-500 text-black font-bold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-emerald-400"
+                                    className="px-6 py-2 bg-cyan-500 text-black font-bold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-cyan-400"
                                 >
                                     Continue
                                 </button>
@@ -149,17 +179,21 @@ export default function OnboardingWizard() {
                             {selectedTool === "vscode" ? (
                                 <div className="mb-8">
                                     <p className="text-zinc-400 mb-4">Run this command in your VS Code terminal:</p>
-                                    <div className="bg-black border border-white/10 rounded-lg p-4 flex items-center justify-between font-mono text-sm text-emerald-400 mb-6">
+                                    <div className="bg-black border border-white/10 rounded-lg p-4 flex items-center justify-between font-mono text-sm text-cyan-400 mb-4">
                                         <span>code --install-extension rverity.vscode</span>
-                                        <Copy className="h-4 w-4 text-zinc-500 cursor-pointer hover:text-white" />
+                                        <button onClick={() => copyCommand("code --install-extension rverity.vscode")} className="p-2 hover:bg-white/5 rounded-lg transition-colors">
+                                            {copied ? <Check className="h-4 w-4 text-cyan-400" /> : <Copy className="h-4 w-4 text-zinc-500 cursor-pointer hover:text-white" />}
+                                        </button>
                                     </div>
+                                    <p className="text-zinc-500 text-xs">Then sign in with your Rverity account in the extension sidebar.</p>
                                 </div>
                             ) : (
                                 <div className="mb-8">
-                                    <p className="text-zinc-400 mb-4">Install the extension from the Chrome Web Store:</p>
-                                    <Link href="#" className="inline-flex items-center text-blue-400 hover:underline mb-6">
-                                        Open Chrome Web Store <ArrowRight className="ml-1 h-3 w-3" />
-                                    </Link>
+                                    <p className="text-zinc-400 mb-4">Install the Chrome extension and pin it:</p>
+                                    <a href="https://chromewebstore.google.com/search/rverity" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 mb-4">
+                                        Open Chrome Web Store <ExternalLink className="h-3 w-3" />
+                                    </a>
+                                    <p className="text-zinc-500 text-xs">After installing, click the extension icon and sign in.</p>
                                 </div>
                             )}
 
@@ -167,20 +201,24 @@ export default function OnboardingWizard() {
                                 {!isVerified ? (
                                     isVerifying ? (
                                         <div className="flex flex-col items-center">
-                                            <Loader2 className="h-8 w-8 text-emerald-500 animate-spin mb-2" />
+                                            <Loader2 className="h-8 w-8 text-cyan-500 animate-spin mb-2" />
                                             <p className="text-sm text-zinc-400">Listening for connection...</p>
+                                            <p className="text-xs text-zinc-600 mt-2">Open the extension and sign in to connect</p>
                                         </div>
                                     ) : (
                                         <div className="flex flex-col items-center">
                                             <div className="h-2 w-2 bg-red-500 rounded-full mb-2 animate-pulse" />
                                             <p className="text-sm text-zinc-500 mb-4">Not connected yet</p>
-                                            <button onClick={handleVerify} className="text-sm text-white underline">Check again</button>
+                                            <div className="flex gap-4">
+                                                <button onClick={handleVerify} className="text-sm text-cyan-400 hover:text-cyan-300 underline">Check again</button>
+                                                <button onClick={handleSkip} className="text-sm text-zinc-600 hover:text-zinc-400">Skip for now</button>
+                                            </div>
                                         </div>
                                     )
                                 ) : (
                                     <div className="flex flex-col items-center">
-                                        <div className="h-12 w-12 bg-emerald-500/20 rounded-full flex items-center justify-center mb-2">
-                                            <Check className="h-6 w-6 text-emerald-500" />
+                                        <div className="h-12 w-12 bg-cyan-500/20 rounded-full flex items-center justify-center mb-2">
+                                            <Check className="h-6 w-6 text-cyan-500" />
                                         </div>
                                         <p className="text-white font-medium">Successfully Connected!</p>
                                     </div>
@@ -192,7 +230,7 @@ export default function OnboardingWizard() {
                                 <button
                                     onClick={nextStep}
                                     disabled={!isVerified}
-                                    className="px-6 py-2 bg-emerald-500 text-black font-bold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="px-6 py-2 bg-cyan-500 text-black font-bold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     Finish
                                 </button>
@@ -208,7 +246,7 @@ export default function OnboardingWizard() {
                             exit={{ opacity: 0, x: -20 }}
                             className="flex-1 flex flex-col items-center text-center justify-center"
                         >
-                            <h2 className="text-3xl font-bold text-white mb-4">You're all set!</h2>
+                            <h2 className="text-3xl font-bold text-white mb-4">You&apos;re all set!</h2>
                             <p className="text-zinc-400 max-w-md mb-8">
                                 Rverity is now active in the background. As you work, your knowledge graph will automatically populate.
                             </p>

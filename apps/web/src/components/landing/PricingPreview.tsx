@@ -25,7 +25,7 @@ export default function PricingPreview() {
                 return;
             }
 
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/payment/create-subscription`, {
+            const res = await fetch('/v1/payment/create-subscription', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

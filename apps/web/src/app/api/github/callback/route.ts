@@ -37,9 +37,9 @@ export async function GET(request: Request) {
             }
         );
 
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { user } } = await supabase.auth.getUser();
 
-        if (!session) {
+        if (!user) {
             return NextResponse.redirect(
                 new URL('/login?error=unauthorized', request.url)
             );
@@ -88,7 +88,7 @@ export async function GET(request: Request) {
         const { error: insertError } = await supabase
             .from('github_installations')
             .upsert({
-                user_id: session.user.id,
+                user_id: user.id,
                 installation_id: parseInt(installationId),
                 account_login: installationData.account?.login,
                 account_type: installationData.account?.type,
@@ -107,7 +107,7 @@ export async function GET(request: Request) {
             );
         }
 
-        console.log(`[GitHub OAuth] Successfully linked installation ${installationId} to user ${session.user.id}`);
+        console.log(`[GitHub OAuth] Successfully linked installation ${installationId} to user ${user.id}`);
 
         return NextResponse.redirect(
             new URL('/dashboard?success=github_connected', request.url)

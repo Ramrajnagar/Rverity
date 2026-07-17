@@ -29,13 +29,13 @@ export async function GET(request: Request) {
             }
         );
 
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { user } } = await supabase.auth.getUser();
 
-        if (!session) {
+        if (!user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const keys = await ApiKeyService.listKeys(session.user.id);
+        const keys = await ApiKeyService.listKeys(user.id);
         return NextResponse.json({ keys });
     } catch (error) {
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
@@ -63,16 +63,16 @@ export async function POST(request: Request) {
             }
         );
 
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { user } } = await supabase.auth.getUser();
 
-        if (!session) {
+        if (!user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
         const body = await request.json();
         const { name } = createKeySchema.parse(body);
 
-        const result = await ApiKeyService.createKey(session.user.id, name);
+        const result = await ApiKeyService.createKey(user.id, name);
         return NextResponse.json(result);
     } catch (error: any) {
         if (error instanceof z.ZodError) {

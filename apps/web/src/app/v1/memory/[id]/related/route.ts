@@ -34,9 +34,9 @@ export async function GET(
             }
         );
 
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { user } } = await supabase.auth.getUser();
 
-        if (!session) {
+        if (!user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
@@ -45,7 +45,7 @@ export async function GET(
             .from('memories')
             .select('*')
             .eq('id', id)
-            .eq('user_id', session.user.id)
+            .eq('user_id', user.id)
             .single();
 
         if (sourceError || !sourceMemory) {
@@ -55,9 +55,8 @@ export async function GET(
             );
         }
 
-        // Extract tags and content for similarity matching
-        const sourceTags = sourceMemory.payload?.tags || [];
-        const sourceContent = sourceMemory.payload?.content || '';
+        const sourceTags = sourceMemory.tags || [];
+        const sourceContent = sourceMemory.content || '';
         const sourceWords = sourceContent.toLowerCase().split(/\s+/).filter((w: string) => w.length > 3);
 
         // Find related memories based on:
@@ -69,7 +68,7 @@ export async function GET(
         const { data: allMemories, error: allError } = await supabase
             .from('memories')
             .select('*')
-            .eq('user_id', session.user.id)
+            .eq('user_id', user.id)
             .neq('id', id)
             .order('created_at', { ascending: false })
             .limit(100); // Get recent memories to compare
@@ -85,8 +84,8 @@ export async function GET(
         // Calculate relevance scores
         const scoredMemories = (allMemories || []).map((memory: any) => {
             let score = 0;
-            const memoryTags = memory.payload?.tags || [];
-            const memoryContent = memory.payload?.content || '';
+            const memoryTags = memory.tags || [];
+            const memoryContent = memory.content || '';
             const memoryWords = memoryContent.toLowerCase().split(/\s+/).filter((w: string) => w.length > 3);
 
             // Tag overlap (high weight)
@@ -98,7 +97,7 @@ export async function GET(
             score += sharedWords.length * 2;
 
             // Same source (low weight)
-            if (memory.payload?.source === sourceMemory.payload?.source) {
+            if (memory.source === sourceMemory.source) {
                 score += 5;
             }
 

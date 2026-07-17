@@ -26,13 +26,13 @@ export async function GET(request: Request) {
             }
         );
 
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { user } } = await supabase.auth.getUser();
 
-        if (!session) {
+        if (!user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const userId = session.user.id;
+        const userId = user.id;
 
         // Generate a new API Key for the extension
         // We cannot retrieve existing raw keys as they are hashed.

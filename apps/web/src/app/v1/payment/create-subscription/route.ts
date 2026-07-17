@@ -30,9 +30,9 @@ export async function POST(request: Request) {
             }
         );
 
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { user } } = await supabase.auth.getUser();
 
-        if (!session) {
+        if (!user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'Invalid Plan ID' }, { status: 400 });
         }
 
-        const subscription = await PayPalService.createSubscription(paypalPlanId, session.user.id);
+        const subscription = await PayPalService.createSubscription(paypalPlanId, user.id);
         const approvalLink = subscription.links.find((l: any) => l.rel === 'approve');
 
         return NextResponse.json({

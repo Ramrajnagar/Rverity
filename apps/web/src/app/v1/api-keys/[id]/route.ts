@@ -24,15 +24,15 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
             }
         );
 
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { user } } = await supabase.auth.getUser();
 
-        if (!session) {
+        if (!user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
         const { id } = await params;
 
-        await ApiKeyService.revokeKey(session.user.id, id);
+        await ApiKeyService.revokeKey(user.id, id);
         return NextResponse.json({ success: true });
     } catch (error) {
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

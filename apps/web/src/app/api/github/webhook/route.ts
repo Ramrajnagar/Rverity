@@ -106,13 +106,10 @@ export async function POST(request: Request) {
             .from('memories')
             .insert({
                 user_id: installation.user_id,
-                payload: {
-                    content,
-                    source: 'github',
-                    tags,
-                    metadata,
-                    timestamp: new Date().toISOString()
-                }
+                content,
+                source: 'github',
+                tags,
+                metadata,
             });
 
         if (insertError) {

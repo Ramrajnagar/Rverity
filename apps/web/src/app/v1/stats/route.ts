@@ -27,9 +27,9 @@ export async function GET(request: Request) {
             }
         );
 
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { user } } = await supabase.auth.getUser();
 
-        if (!session) {
+        if (!user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
@@ -40,7 +40,7 @@ export async function GET(request: Request) {
         const { count: todayCount } = await supabase
             .from('memories')
             .select('*', { count: 'exact', head: true })
-            .eq('user_id', session.user.id)
+            .eq('user_id', user.id)
             .gte('created_at', todayStart.toISOString());
 
         // This week
@@ -49,7 +49,7 @@ export async function GET(request: Request) {
         const { count: weekCount } = await supabase
             .from('memories')
             .select('*', { count: 'exact', head: true })
-            .eq('user_id', session.user.id)
+            .eq('user_id', user.id)
             .gte('created_at', weekStart.toISOString());
 
         // This month
@@ -57,20 +57,20 @@ export async function GET(request: Request) {
         const { count: monthCount } = await supabase
             .from('memories')
             .select('*', { count: 'exact', head: true })
-            .eq('user_id', session.user.id)
+            .eq('user_id', user.id)
             .gte('created_at', monthStart.toISOString());
 
         // Total
         const { count: totalCount } = await supabase
             .from('memories')
             .select('*', { count: 'exact', head: true })
-            .eq('user_id', session.user.id);
+            .eq('user_id', user.id);
 
         // Calculate streak (consecutive days with at least one memory)
         const { data: allMemories } = await supabase
             .from('memories')
             .select('created_at')
-            .eq('user_id', session.user.id)
+            .eq('user_id', user.id)
             .order('created_at', { ascending: false })
             .limit(365); // Last year
 

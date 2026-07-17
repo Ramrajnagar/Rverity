@@ -2,7 +2,6 @@
 'use client';
 import { useEffect, useRef, useState, useMemo } from 'react';
 import ForceGraph3D from 'react-force-graph-3d';
-import { useTheme } from 'next-themes';
 
 // Dynamic import wrapper handled in parent for SSR safety
 

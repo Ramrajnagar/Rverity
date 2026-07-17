@@ -49,9 +49,9 @@ export async function POST(request: Request) {
                     },
                 }
             );
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session) {
-                user = session.user;
+            const { data: { user: authUser } } = await supabase.auth.getUser();
+            if (authUser) {
+                user = authUser;
             }
         }
 
@@ -178,9 +178,9 @@ export async function GET(request: Request) {
                 }
             );
 
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session) {
-                user = session.user;
+            const { data: { user: authUser } } = await supabase.auth.getUser();
+            if (authUser) {
+                user = authUser;
             }
         }
 
@@ -223,7 +223,11 @@ export async function GET(request: Request) {
 
                 const memories = context.map((item: any) => ({
                     id: item.id || crypto.randomUUID(),
-                    payload: item
+                    content: item.content || '',
+                    source: item.source || 'cache',
+                    tags: item.tags || [],
+                    created_at: item.timestamp || new Date().toISOString(),
+                    metadata: item.metadata || {},
                 }));
                 return NextResponse.json({ memories, source: 'cache' });
             }

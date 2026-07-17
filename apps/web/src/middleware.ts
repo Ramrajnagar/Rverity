@@ -29,19 +29,19 @@ export async function middleware(req: NextRequest) {
         }
     );
 
-    const { data: { session } } = await supabase.auth.getSession();
+    const { data: { user } } = await supabase.auth.getUser();
     const path = req.nextUrl.pathname;
 
     const isProtected = PROTECTED_ROUTES.some(route => path.startsWith(route));
     const isAuth = AUTH_ROUTES.some(route => path.startsWith(route));
 
-    if (isProtected && !session) {
+    if (isProtected && !user) {
         const url = new URL('/login', req.url);
         url.searchParams.set('redirect', path);
         return NextResponse.redirect(url);
     }
 
-    if (isAuth && session) {
+    if (isAuth && user) {
         return NextResponse.redirect(new URL('/dashboard', req.url));
     }
 

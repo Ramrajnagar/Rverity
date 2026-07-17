@@ -33,23 +33,29 @@ export default function DashboardPage() {
     const [selectedTag, setSelectedTag] = useState<string>('all');
 
     useEffect(() => {
-        checkAuth();
+        let cleanup: (() => void) | undefined;
+
+        const init = async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+
+            if (!session) {
+                router.replace('/login');
+                return;
+            }
+
+            setUser(session.user);
+            setConnected(true);
+            await loadMemories(session.access_token);
+            cleanup = subscribeToUpdates(session.user.id);
+            setLoading(false);
+        };
+
+        init();
+
+        return () => {
+            cleanup?.();
+        };
     }, []);
-
-    const checkAuth = async () => {
-        const { data: { session } } = await supabase.auth.getSession();
-
-        if (!session) {
-            router.replace('/login');
-            return;
-        }
-
-        setUser(session.user);
-        setConnected(true);
-        await loadMemories(session.access_token);
-        subscribeToUpdates(session.user.id);
-        setLoading(false);
-    };
 
     const loadMemories = async (token: string) => {
         try {
@@ -276,11 +282,11 @@ export default function DashboardPage() {
                     border-radius: 3px;
                 }
                 .custom-scrollbar::-webkit-scrollbar-thumb {
-                    background: rgba(168, 85, 247, 0.4);
+                    background: rgba(0, 163, 255, 0.4);
                     border-radius: 3px;
                 }
                 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-                    background: rgba(168, 85, 247, 0.6);
+                    background: rgba(0, 163, 255, 0.6);
                 }
             `}</style>
         </div>

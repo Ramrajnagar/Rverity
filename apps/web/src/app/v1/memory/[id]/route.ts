@@ -31,9 +31,9 @@ export async function GET(
             }
         );
 
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { user } } = await supabase.auth.getUser();
 
-        if (!session) {
+        if (!user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
@@ -42,7 +42,7 @@ export async function GET(
             .from('memories')
             .select('*')
             .eq('id', id)
-            .eq('user_id', session.user.id)
+            .eq('user_id', user.id)
             .single();
 
         if (error || !memory) {
@@ -95,9 +95,9 @@ export async function PUT(
             }
         );
 
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { user } } = await supabase.auth.getUser();
 
-        if (!session) {
+        if (!user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
@@ -109,7 +109,7 @@ export async function PUT(
             .from('memories')
             .select('*')
             .eq('id', id)
-            .eq('user_id', session.user.id)
+            .eq('user_id', user.id)
             .single();
 
         if (!existing) {
@@ -119,19 +119,16 @@ export async function PUT(
             );
         }
 
-        // Update payload
-        const updatedPayload = {
-            ...existing.payload,
-            ...(content && { content }),
-            ...(tags && { tags }),
-            ...(metadata && { metadata: { ...existing.payload.metadata, ...metadata } })
-        };
+        const updateFields: Record<string, any> = {};
+        if (content) updateFields.content = content;
+        if (tags) updateFields.tags = tags;
+        if (metadata) updateFields.metadata = { ...existing.metadata, ...metadata };
 
         const { data: updated, error } = await supabase
             .from('memories')
-            .update({ payload: updatedPayload })
+            .update(updateFields)
             .eq('id', id)
-            .eq('user_id', session.user.id)
+            .eq('user_id', user.id)
             .select()
             .single();
 
@@ -186,9 +183,9 @@ export async function DELETE(
             }
         );
 
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { user } } = await supabase.auth.getUser();
 
-        if (!session) {
+        if (!user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
@@ -196,7 +193,7 @@ export async function DELETE(
             .from('memories')
             .delete()
             .eq('id', id)
-            .eq('user_id', session.user.id);
+            .eq('user_id', user.id);
 
         if (error) {
             console.error('[API] Delete memory error:', error);
