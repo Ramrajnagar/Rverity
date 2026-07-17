@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight, Zap } from "lucide-react";
 import { motion } from "framer-motion";
+import HeroCube from "./HeroCube";
 import ProductMockup from "./ProductMockup";
 import LiveCodeTerminal from "./LiveCodeTerminal";
 
@@ -82,6 +83,19 @@ export default function HeroSection() {
                 >
                     <div className="relative">
                         <div className="absolute -inset-8 bg-[#00A3FF]/[0.04] blur-[60px] rounded-full pointer-events-none" />
+                        <HeroCube />
+                    </div>
+                </motion.div>
+
+                {/* Product mockup — real dashboard */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.35 }}
+                    className="mt-12 md:mt-16 max-w-5xl mx-auto"
+                >
+                    <div className="relative">
+                        <div className="absolute -inset-6 bg-[#00A3FF]/[0.03] blur-[50px] rounded-full pointer-events-none" />
                         <ProductMockup />
                     </div>
                 </motion.div>
