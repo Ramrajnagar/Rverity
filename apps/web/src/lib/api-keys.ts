@@ -14,7 +14,7 @@ export class ApiKeyService {
         const hash = crypto.createHash('sha256').update(rawKey).digest('hex');
 
         // 3. Store in DB
-        const { data, error } = await supabase
+        const { data: apiKeyData, error } = await supabase
             .from('tools')
             .insert({
                 user_id: userId,
@@ -30,22 +30,22 @@ export class ApiKeyService {
         }
 
         return {
-            id: data.id,
-            name: data.name,
+            id: apiKeyData.id,
+            name: apiKeyData.name,
             key: rawKey, // Return raw key only once
-            createdAt: data.created_at
+            createdAt: apiKeyData.created_at
         };
     }
 
     static async listKeys(userId: string) {
-        const { data, error } = await supabase
+        const { data: apiKeys, error } = await supabase
             .from('tools')
             .select('id, name, last_active, created_at')
             .eq('user_id', userId)
             .order('created_at', { ascending: false });
 
         if (error) throw error;
-        return data;
+        return apiKeys;
     }
 
     static async revokeKey(userId: string, keyId: string) {
@@ -64,17 +64,17 @@ export class ApiKeyService {
 
         const hash = crypto.createHash('sha256').update(rawKey).digest('hex');
 
-        const { data, error } = await supabase
+        const { data: apiKeyRecord, error } = await supabase
             .from('tools')
             .select('user_id, last_active')
             .eq('api_key_hash', hash)
             .single();
 
-        if (error || !data) return null;
+        if (error || !apiKeyRecord) return null;
 
         // Async update last active
         supabase.from('tools').update({ last_active: new Date().toISOString() }).eq('api_key_hash', hash).then();
 
-        return data.user_id;
+        return apiKeyRecord.user_id;
     }
 }
