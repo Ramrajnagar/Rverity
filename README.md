@@ -19,7 +19,7 @@ We live in a state of cognitive fracture.
 Your code lives in GitHub. Your research lives in Chrome. Your communication lives in Slack. Your thoughts live in Notion.
 These systems do not talk to each other. They are isolated silos of intelligence.
 
-As we approach the AGI horizon, this fragmentation becomes a liability. AI models are generic geniuses they know everything about the world, but **nothing about you**. They lack the context of your specific history, your unique patterns, and your implicit knowledge.
+As we approach the AGI horizon, this fragmentation becomes a liability. AI models are generic geniuses, they know everything about the world, but **nothing about you**. They lack the context of your specific history, your unique patterns, and your implicit knowledge.
 
 ### The Solution: Consilience
 
@@ -36,7 +36,7 @@ We adhere to a philosophy of **sovereign computing**. You run the stack. You own
 
 ### Core Infrastructure
 - **Runtime**: Next.js 16 (App Router) on Node.js Edge.
-- **State Management**: Server-side highly consistent state via TanStack Query.
+- **State Management**: Server-side, highly consistent state via TanStack Query.
 - **Visual Engine**: React Three Fiber (WebGL) for high-performance 3D graph rendering.
 - **Vector Database**: Supabase (PostgreSQL + pgvector) for high-dimensional semantic search.
 - **Caching**: Upstash Redis for sub-millisecond context retrieval.
@@ -81,7 +81,7 @@ graph TD
 ### The Pipeline
 1.  **Ingestion**: Passive observers in VS Code and Chrome capture text, code, and navigational intent.
 2.  **Synthesis**: Data is chunked and embedded using OpenAI/Anthropic high-fidelity models.
-3.  **Graphing**: Semantic relationships are established between disparate data points (e.g., linking a StackOverflow article to a specific Git commit).
+3.  **Graphing**: Semantic relationships are established between disparate data points (e.g., linking a Stack Overflow article to a specific Git commit).
 4.  **Recall**: The Context Engine anticipates your needs, surfacing relevant memories before you explicitly query for them.
 
 ---

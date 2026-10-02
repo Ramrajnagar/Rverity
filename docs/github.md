@@ -15,7 +15,7 @@ Automatically capture your GitHub activity and build a comprehensive memory of y
 ### Privacy First
 - **Metadata Only**: Only captures commit messages, PR titles, issue descriptions (no code content)
 - **User Controlled**: You choose which repositories to monitor
-- **Easy Disconnect**: Remove the integration anytime
+- **Easy Disconnect**: Remove the integration at any time
 - **Secure**: Uses GitHub's official OAuth and webhook system
 
 ### Benefits
